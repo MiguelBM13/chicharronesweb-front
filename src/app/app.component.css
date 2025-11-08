@@ -1,0 +1,46 @@
+.main-navbar {
+    background-color: #212529; /* Fondo negro, estilo dark */
+    border-bottom: 1px solid #343a40;
+}
+
+.main-navbar .navbar-brand {
+    color: #ffffff; /* Letras blancas para el logo */
+}
+
+.main-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.75); /* Letras claras para los enlaces */
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.main-navbar .nav-link:hover {
+    color: var(--primary-color, #d8a404); /* Mantenemos el amarillo al pasar el mouse */
+}
+
+.main-navbar .nav-link.active {
+    color: var(--primary-color, #d8a404); /* Mantenemos el amarillo para el enlace activo */
+    font-weight: 700;
+}
+
+/* Estilo para el texto de bienvenida del usuario */
+.main-navbar .navbar-text {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.main-navbar .user-info .btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* Estilo para el botón de cerrar sesión al pasar el mouse */
+.main-navbar .btn-outline-secondary:hover {
+    background-color: #dc3545; /* Rojo de "peligro" de Bootstrap */
+    color: #ffffff;
+    border-color: #dc3545;
+}
+
+
+/* Ajuste para el contenido principal cuando la barra de navegación es fija */
+.main-content.logged-in {
+    padding-top: 80px; /* Ajusta este valor según la altura de tu navbar */
+}

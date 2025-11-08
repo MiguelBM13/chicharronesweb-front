@@ -1,0 +1,23 @@
+<div class="page-container">
+  <h1>Tu Carrito de Compras</h1>
+
+  <div *ngIf="items.length === 0" class="empty-cart">
+    <p>Tu carrito está vacío.</p>
+    <a routerLink="/menu">Volver al menú</a>
+  </div>
+
+  <div *ngIf="items.length > 0" class="cart-content">
+    <ul class="cart-list">
+      <li *ngFor="let item of items" class="cart-item">
+        <span class="item-name">{{ item.nombre }}</span>
+        <span class="item-quantity">x {{ item.cantidad }}</span>
+        <span class="item-price">S/ {{ (item.precio * item.cantidad).toFixed(2) }}</span>
+      </li>
+    </ul>
+
+    <div class="cart-summary">
+      <h2 class="cart-total">Total: S/ {{ total.toFixed(2) }}</h2>
+      <button class="checkout-button" (click)="realizarPedido()">Realizar Pedido</button>
+    </div>
+  </div>
+</div>
