@@ -26,6 +26,15 @@ export class PedidoService {
   }
 
   /**
+   * Obtiene los pedidos asociados a un usuario específico.
+   * @param usuarioId ID del usuario logueado.
+   */
+  obtenerPedidosPorUsuario(usuarioId: number): Observable<any[]> {
+    const url = `${this.apiUrl}/usuario/${usuarioId}`;
+    return this.http.get<any[]>(url);
+  }
+
+  /**
    * Actualiza el estado de un pedido específico.
    * @param id El ID del pedido a actualizar.
    * @param estado El nuevo estado del pedido.

@@ -1,0 +1,36 @@
+<div class="pedidos-container">
+  <h1>Mis pedidos</h1>
+
+  <!-- Estado de carga -->
+  <div *ngIf="cargando" class="loading">
+    Cargando pedidos...
+  </div>
+
+  <!-- Si no hay pedidos -->
+  <div *ngIf="!cargando && pedidos.length === 0" class="empty-pedidos">
+    <p>No tienes pedidos registrados.</p>
+    <a routerLink="/menu">Ir al menú</a>
+  </div>
+
+  <!-- Lista de pedidos -->
+  <div *ngIf="!cargando && pedidos.length > 0" class="lista-pedidos">
+    <div *ngFor="let pedido of pedidos" class="pedido-item">
+      <div class="pedido-header">
+        <h3>Pedido #{{ pedido.id }}</h3>
+        <span class="estado" [ngClass]="obtenerClaseEstado(pedido.estado)">
+          {{ pedido.estado }}
+        </span>
+      </div>
+
+      <p><strong>Fecha:</strong> {{ formatearFecha(pedido.fechaHora) }}</p>
+      <p><strong>Total:</strong> S/ {{ pedido.total }}</p>
+
+      <ul class="detalles">
+        <li *ngFor="let detalle of pedido.detalles">
+          {{ detalle.cantidad }} × {{ detalle.producto.nombre }} — 
+          S/ {{ detalle.precioUnitario }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
