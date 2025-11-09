@@ -1,0 +1,260 @@
+/* Reset y configuración base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #333;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  min-height: 100vh; /* asegura full height */
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  /*min-height: 100vh;*/
+}
+
+/* Contenedor principal de Nosotros */
+.nosotros-container {
+  flex: 1 0 auto;
+  width: 600px;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 80px 60px 0px 60px;
+  width: 100%;
+}
+
+/* Título principal */
+h1 {
+  font-size: 56px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 70px;
+  color: #2c2c2c;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: fadeInUp 0.8s ease;
+}
+
+/* Grid de contenido */
+.nosotros-content {
+  display: grid;
+  grid-template-columns: 1.3fr 400px;
+  gap: 100px;
+  align-items: center;
+}
+
+/* Contenedor de texto */
+.text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  animation: fadeInLeft 1s ease 0.2s backwards;
+}
+
+.text-content p {
+  font-size: 17px;
+  line-height: 2;
+  text-align: justify;
+  color: #2c2c2c;
+  margin: 0;
+  font-weight: 400;
+  padding-left: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.text-content p::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 4px;
+  height: calc(100% - 16px);
+  background: linear-gradient(180deg, #161616 0%, #8b6f47 100%);
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+.text-content p:hover {
+  transform: translateX(5px);
+}
+
+.text-content p:hover::before {
+  opacity: 1;
+  width: 6px;
+}
+
+/* Contenedor del logo */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInRight 1s ease 0.4s backwards;
+}
+
+.logo {
+  width: 350px;
+  height: 350px;
+  object-fit: contain;
+}
+
+/* Footer */
+footer {
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+/* Animaciones de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 1200px) {
+  .nosotros-content {
+    gap: 70px;
+  }
+  .nosotros-container {
+    padding: 70px 50px 20px 50px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nosotros-container {
+    padding: 60px 40px 20px 40px;
+  }
+  h1 {
+    font-size: 48px;
+    margin-bottom: 50px;
+  }
+  .nosotros-content {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .logo-container {
+    order: 2;
+  }
+  .text-content {
+    order: 1;
+  }
+  .logo {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nosotros-container {
+    padding: 50px 30px 15px 30px;
+  }
+  h1 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+  .text-content {
+    gap: 25px;
+  }
+  .text-content p {
+    font-size: 16px;
+    line-height: 1.9;
+    padding-left: 18px;
+  }
+  .logo {
+    width: 280px;
+    height: 280px;
+  }
+  .nosotros-content {
+    gap: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nosotros-container {
+    padding: 40px 20px 10px 20px;
+  }
+  h1 {
+    font-size: 32px;
+    margin-bottom: 35px;
+  }
+  .text-content {
+    gap: 20px;
+  }
+  .text-content p {
+    font-size: 15px;
+    line-height: 1.8;
+    padding-left: 15px;
+  }
+  .text-content p::before {
+    width: 3px;
+  }
+  .logo {
+    width: 240px;
+    height: 240px;
+  }
+  .nosotros-content {
+    gap: 35px;
+  }
+}
+
+@media (max-width: 360px) {
+  .nosotros-container {
+    padding: 35px 15px 10px 15px;
+  }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  .text-content p {
+    font-size: 14px;
+    line-height: 1.7;
+    padding-left: 12px;
+  }
+  .logo {
+    width: 200px;
+    height: 200px;
+  }
+  .nosotros-content {
+    gap: 30px;
+  }
+}

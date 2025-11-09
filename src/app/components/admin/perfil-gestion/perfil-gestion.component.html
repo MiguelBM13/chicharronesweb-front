@@ -1,0 +1,48 @@
+<div class="container py-5">
+  <h3 class="mb-4 text-secondary">
+    <i class="bi bi-people-fill me-2"></i> Gestión de Perfiles
+  </h3>
+
+  <!-- Indicador de carga -->
+  <div *ngIf="cargando" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <!-- Mensaje cuando no hay usuarios -->
+  <div *ngIf="!cargando && usuarios.length === 0" class="alert alert-info text-center rounded-pill">
+    <i class="bi bi-info-circle me-2"></i> No hay usuarios registrados por el momento.
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <div *ngIf="!cargando && usuarios.length > 0" class="table-responsive">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Fecha de Registro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td class="fw-semibold">#{{ usuario.id }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>
+            <span class="badge rounded-pill px-3 py-2" [ngClass]="{
+                'bg-primary text-white': usuario.rol === 'ADMIN',
+                'bg-success text-white': usuario.rol === 'CLIENTE'
+              }">
+              {{ usuario.rol }}
+            </span>
+          </td>
+          <td>{{ usuario.fechaRegistro ? (usuario.fechaRegistro | date:'dd/MM/yyyy') : 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

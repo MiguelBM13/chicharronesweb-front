@@ -49,4 +49,12 @@ export class AuthService {
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
+
+  /**
+   * Obtiene todos los usuarios registrados (para el panel de admin).
+   */
+  getUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
 }

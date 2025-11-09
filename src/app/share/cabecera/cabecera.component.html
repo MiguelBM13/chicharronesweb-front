@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <div class="container-fluid px-4">
+        <!-- Logo e Identidad -->
+        <a class="navbar-brand d-flex align-items-center" routerLink="/landing">
+            <img src="assets/images/Logol.jpg" alt="logo" class="logo-img me-2" />
+            <div>
+                <span class="fw-bold fs-5 d-block">El Lobo</span>
+                <small class="text-uppercase">Chicharronería</small>
+            </div>
+        </a>
+
+        <!-- Botón colapsable (para móvil) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú principal -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
+            <ul class="navbar-nav mb-2 mb-lg-0 fw-semibold">
+                <li class="nav-item"><a class="nav-link" routerLink="/landing">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/menu">Carta</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/nosotros">Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/contacto">Contacto</a></li>
+            </ul>
+        </div>
+
+        <!-- Lado derecho (cuenta) -->
+        <div class="d-flex align-items-center gap-3">
+            <div class="dropdown">
+                <a class="dropdown-toggle text-white fw-semibold text-decoration-none" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Ingresa a tu cuenta
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" routerLink="/login">Iniciar sesión</a></li>
+                    <li><a class="dropdown-item" routerLink="/registro">Registrarse</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

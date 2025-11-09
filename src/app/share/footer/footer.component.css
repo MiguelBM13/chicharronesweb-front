@@ -1,0 +1,16 @@
+.footer {
+  background-color: #4b1f1a !important; /* Fondo marrón oscuro */
+}
+
+.footer-logo {
+  max-height: 100px; /* Tamaño ajustable */
+  filter: brightness(0) invert(1); /* Convierte la imagen a blanco */
+}
+
+.footer a {
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #ffb3a1; /* Color al pasar el cursor */
+}
