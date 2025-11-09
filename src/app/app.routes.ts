@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { CalificacionComponent } from './components/calificacion/calificacion.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
@@ -12,6 +14,9 @@ export const routes: Routes = [
     { path: '', component: LandingComponent }, // La landing es la nueva ruta raíz
     { path: 'login', component: LoginComponent },
     { path: 'registro', component: RegistroComponent },
+    { path: 'pedidos', component: PedidosComponent },
+    { path: 'calificar/:id', component: CalificacionComponent },
+    { path: '', redirectTo: '/pedidos', pathMatch: 'full' },
 
     // Rutas protegidas
     { path: 'menu', component: MenuComponent, canActivate: [authGuard] },

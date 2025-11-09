@@ -1,0 +1,63 @@
+<div class="calificacion-wrapper">
+  <div class="calificacion-container">
+
+    <!-- Loader mientras carga -->
+    <div *ngIf="cargando" class="loader">
+      <div class="spinner"></div>
+      <p>Cargando...</p>
+    </div>
+
+    <!-- Contenido principal -->
+    <div *ngIf="!cargando">
+      <!-- Header -->
+      <div class="header">
+        <h2>
+          {{ calificacionExistente ? 'Calificación del Pedido' : 'Calificar Pedido' }}
+          #{{ pedidoId }}
+        </h2>
+        <span *ngIf="calificacionExistente && !modoEdicion" class="badge-calificado">
+          ✓ Ya calificado
+        </span>
+      </div>
+
+      <!-- Estrellas -->
+      <div class="estrellas-section">
+        <label>Calificación:</label>
+        <div class="estrellas">
+          <span *ngFor="let star of estrellas" (click)="seleccionarEstrella(star)" [class.activa]="star <= puntuacion"
+            [class.bloqueada]="calificacionExistente && !modoEdicion" [title]="star + ' estrella(s)'">
+            ★
+          </span>
+        </div>
+        <p class="puntuacion-texto">{{ puntuacion }} de 5 estrellas</p>
+      </div>
+
+      <!-- Comentario -->
+      <div class="comentario-section">
+        <label for="comentario">Comentario:</label>
+        <textarea id="comentario" [(ngModel)]="comentario" placeholder="Deja tu comentario (opcional)..." rows="4"
+          [readonly]="calificacionExistente && !modoEdicion" [class.readonly]="calificacionExistente && !modoEdicion">
+        </textarea>
+      </div>
+
+      <!-- Botones -->
+      <div class="buttons">
+        <!-- Si no hay calificación o está en modo edición -->
+        <ng-container *ngIf="!calificacionExistente || modoEdicion">
+          <button (click)="guardarCalificacion()" class="btn btn-primary">
+            {{ calificacionExistente ? 'Actualizar' : 'Guardar' }}
+          </button>
+          <button (click)="cancelar()" class="btn btn-secondary">Cancelar</button>
+        </ng-container>
+
+        <!-- Si hay calificación y no está en modo edición -->
+        <ng-container *ngIf="calificacionExistente && !modoEdicion">
+          <button (click)="habilitarEdicion()" class="btn btn-primary">
+            Editar calificación
+          </button>
+          <button (click)="cancelar()" class="btn btn-secondary">Volver</button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
