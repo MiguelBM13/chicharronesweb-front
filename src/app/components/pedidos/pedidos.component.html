@@ -31,6 +31,14 @@
           S/ {{ detalle.precioUnitario }}
         </li>
       </ul>
+
+      <!-- Botón para calificar solo si está LISTO -->
+      <button 
+      class="btn btn-primary"
+        *ngIf="pedido.estado === 'LISTO'" 
+        [routerLink]="['/calificar', pedido.id]">
+        Calificar pedido
+      </button>
     </div>
   </div>
 </div>

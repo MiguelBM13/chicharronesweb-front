@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { PedidoService } from '../../services/pedido.service';
 
 @Component({
   selector: 'app-pedidos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './pedidos.component.html',
   styleUrls: ['./pedidos.component.css'] // 👈 corregido (antes decía styleUrl)
 })
