@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/usuarios';
+  private authUrl = 'http://localhost:8080/auth'; // ✅ URL para recuperación
   private currentUserSubject: BehaviorSubject<any>;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -42,6 +43,20 @@ export class AuthService {
    */
   register(userData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/registro`, userData);
+  }
+
+  // ✅ AGREGA ESTOS MÉTODOS PARA RECUPERACIÓN DE CONTRASEÑA
+  recoverPassword(email: string): Observable<any> {
+    return this.http.post(`${this.authUrl}/recover`, null, {
+      params: { email }
+    });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.authUrl}/reset`, {
+      token,
+      newPassword
+    });
   }
 
   logout() {

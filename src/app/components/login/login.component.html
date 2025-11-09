@@ -23,6 +23,12 @@
             <button type="submit" class="btn btn-primary btn-lg">Ingresar</button>
           </div>
 
+          <div class="text-center mb-3">
+            <a routerLink="/forgot-password" class="text-decoration-none small">
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+
           <div *ngIf="error" class="alert alert-danger mt-3 text-center">
             {{ error }}
           </div>
