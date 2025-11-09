@@ -1,0 +1,18 @@
+.admin-navbar {
+    background-color: #2e2e2e !important;
+    border-bottom: 3px solid #ffb84d;
+}
+
+.logo-img {
+    max-height: 45px;
+    filter: brightness(0) invert(1);
+}
+
+.nav-link {
+    color: #f1f1f1 !important;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: #ffb84d !important;
+}

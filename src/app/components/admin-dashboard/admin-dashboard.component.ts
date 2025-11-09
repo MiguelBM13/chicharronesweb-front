@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PedidoService } from '../../services/pedido.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -22,39 +21,16 @@ import { ProductMaintenanceComponent } from '../admin/product-maintenance/produc
 })
 export class AdminDashboardComponent implements OnInit {
   // Variable para controlar la vista actual
-  vistaActual: 'pedidos' | 'categorias' | 'productos' = 'pedidos';
+  vistaActual: 'categorias' | 'productos' = 'productos';
 
-  pedidos: any[] = [];
-  estadosPosibles = ['PENDIENTE', 'EN_PREPARACION', 'LISTO', 'ENTREGADO', 'CANCELADO'];
-
-  constructor(private pedidoService: PedidoService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.cargarPedidos();
+    // No necesitamos cargar pedidos aquí
   }
 
   // Método para cambiar la vista que se muestra
-  cambiarVista(vista: 'pedidos' | 'categorias' | 'productos') {
+  cambiarVista(vista: 'categorias' | 'productos') {
     this.vistaActual = vista;
-  }
-
-  cargarPedidos() {
-    this.pedidoService.getPedidos().subscribe(data => {
-      this.pedidos = data.sort((a, b) => b.id - a.id);
-    });
-  }
-
-  cambiarEstado(pedido: any, event: any) {
-    const nuevoEstado = event.target.value;
-    this.pedidoService.actualizarEstado(pedido.id, nuevoEstado).subscribe({
-      next: (response) => {
-        pedido.estado = response.estado;
-        alert(`El pedido #${pedido.id} ha sido actualizado a ${response.estado}`);
-      },
-      error: (err) => {
-        alert('Error al actualizar el estado del pedido.');
-        console.error(err);
-      }
-    });
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router'; // <-- Importa RouterLink// Importar para los enlaces
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-landing',

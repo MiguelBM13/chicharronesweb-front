@@ -1,0 +1,18 @@
+.custom-navbar {
+    background-color: #4b1f1a !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.logo-img {
+    max-height: 45px;
+    filter: brightness(0) invert(1);
+}
+
+.nav-link {
+    color: #f8e8e4 !important;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: #ffb3a1 !important;
+}

@@ -1,0 +1,52 @@
+/* === CABECERA === */
+.custom-navbar {
+  background-color: #4b1f1a !important; /* Marrón oscuro */
+  border-radius: 0 0 0.5rem 0.5rem; /* 🔹 Solo esquinas inferiores redondeadas */
+  margin: 0 !important; /* 🔹 Elimina espacio arriba */
+  padding-top: 0 !important;
+  padding-bottom: 0.3rem;
+}
+
+/* 🔹 Asegura que la navbar esté pegada al borde superior */
+:host {
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Logo */
+.logo-img {
+  max-height: 45px;
+}
+
+/* Links del menú */
+.navbar-nav .nav-link {
+  color: #f8e8e4 !important;
+  font-weight: 600;
+  margin: 0 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffb3a1 !important;
+}
+
+/* Dropdown */
+.dropdown-toggle::after {
+  margin-left: 0.4rem;
+}
+
+.dropdown-menu {
+  background-color: #4b1f1a;
+  border: none;
+  margin-top: 0.5rem;
+}
+
+.dropdown-item {
+  color: #f8e8e4;
+}
+
+.dropdown-item:hover {
+  background-color: transparent;
+  color: #ffb3a1;
+}
