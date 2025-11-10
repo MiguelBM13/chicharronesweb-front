@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +9,26 @@ import { Observable } from 'rxjs';
 export class PedidoService {
   private apiUrl = 'http://localhost:8080/api/pedidos';
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient, private authService: AuthService) { }
   /**
    * Envía un nuevo pedido al backend.
    * @param pedidoData Los datos del pedido (lista de productos y cantidades).
    */
   crearPedido(pedidoData: any): Observable<any> {
-    return this.http.post(this.apiUrl, pedidoData);
-  }
+    const usuario = this.authService.currentUserValue; // 👈 Obtener usuario actual
 
+    if (!usuario) {
+      throw new Error('No hay usuario autenticado');
+    }
+
+    // Agregamos el usuarioId antes de enviar
+    const pedidoConUsuario = {
+      ...pedidoData,
+      usuarioId: usuario.id
+    };
+
+    return this.http.post(this.apiUrl, pedidoConUsuario);
+  }
   /**
    * Obtiene todos los pedidos desde el backend (para el panel de admin).
    */
@@ -43,4 +54,5 @@ export class PedidoService {
     const url = `${this.apiUrl}/${id}/estado?estado=${estado}`;
     return this.http.put(url, {});
   }
+
 }

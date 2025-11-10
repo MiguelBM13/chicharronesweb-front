@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PedidoService } from '../../services/pedido.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -13,13 +14,23 @@ import { PedidoService } from '../../services/pedido.service';
 export class PedidosComponent implements OnInit {
 
   pedidos: any[] = [];
-  usuarioId: number = 1; // ⚠️ temporal: luego obtendremos esto del servicio de autenticación
+  usuarioId!: number;
   cargando: boolean = true;
 
-  constructor(private pedidoService: PedidoService) {}
+
+  constructor(
+    private pedidoService: PedidoService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-    this.obtenerPedidos();
+    const usuario = this.authService.currentUserValue;
+    if (usuario) {
+      this.usuarioId = usuario.id;
+      this.obtenerPedidos();
+    } else {
+      console.warn('No hay usuario logeado');
+    }
   }
 
   obtenerPedidos(): void {
