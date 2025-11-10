@@ -8,9 +8,8 @@
       </a>
 
       <!-- Botón hamburguesa para móviles -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarNav" aria-controls="navbarNav"
-              aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -42,22 +41,23 @@
 
         <!-- Información del usuario -->
         <div class="d-flex align-items-center gap-3">
-          <span class="navbar-text text-muted">
-            <i class="bi bi-person-circle me-1"></i> Hola, {{ authService.currentUserValue?.nombre }}
-          </span>
+          <button class="btn btn-link text-muted text-decoration-none d-flex align-items-center p-0"
+            routerLink="/edit-perfil" routerLinkActive="active">
+            <i class="bi bi-person-circle me-2 fs-5"></i>
+            <span>Hola, {{ authService.currentUserValue?.nombre }}</span>
+          </button>
+
           <button class="btn btn-sm btn-outline-danger" (click)="authService.logout()">
             <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
           </button>
         </div>
+
       </div>
     </div>
   </nav>
 </header>
 
 <!-- Ajuste del contenido principal según el estado de sesión -->
-<main [class.main-content]="authService.isLoggedIn"
-      [class.logged-in]="authService.isLoggedIn"
-      class="pt-5 mt-4">
+<main [class.main-content]="authService.isLoggedIn" [class.logged-in]="authService.isLoggedIn" class="pt-5 mt-4">
   <router-outlet></router-outlet>
 </main>
-

@@ -9,24 +9,26 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { LandingComponent } from './components/landing/landing.component'; // Importar
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
+import { EditPerfilComponent } from './components/edit-perfil/edit-perfil.component';
 
 export const routes: Routes = [
-    { path: '', component: LandingComponent }, // La landing es la nueva ruta raíz
-    { path: 'login', component: LoginComponent },
-    { path: 'registro', component: RegistroComponent },
-    { path: 'pedidos', component: PedidosComponent },
-    { path: 'calificar/:id', component: CalificacionComponent },
-    { path: '', redirectTo: '/pedidos', pathMatch: 'full' },
+  { path: '', component: LandingComponent }, // La landing es la nueva ruta raíz
+  { path: 'login', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
+  { path: 'pedidos', component: PedidosComponent },
+  { path: 'calificar/:id', component: CalificacionComponent },
+  { path: 'edit-perfil', component: EditPerfilComponent },
+  { path: '', redirectTo: '/pedidos', pathMatch: 'full' },
 
-    // Rutas protegidas
-    { path: 'menu', component: MenuComponent, canActivate: [authGuard] },
-    { path: 'carrito', component: CarritoComponent, canActivate: [authGuard] },
-    {
-      path: 'admin',
-      component: AdminDashboardComponent,
-      canActivate: [authGuard, adminGuard]
-    },
+  // Rutas protegidas
+  { path: 'menu', component: MenuComponent, canActivate: [authGuard] },
+  { path: 'carrito', component: CarritoComponent, canActivate: [authGuard] },
+  {
+    path: 'admin',
+    component: AdminDashboardComponent,
+    canActivate: [authGuard, adminGuard]
+  },
 
-    // Redirección para cualquier ruta no encontrada
-    { path: '**', redirectTo: '', pathMatch: 'full' }
+  // Redirección para cualquier ruta no encontrada
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

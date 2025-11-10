@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -49,4 +49,9 @@ export class AuthService {
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
+  actualizarPerfil(id: number, datos: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, datos);
+  }
+
 }
+
