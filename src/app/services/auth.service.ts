@@ -53,5 +53,8 @@ export class AuthService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, datos);
   }
 
+  listarUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`);
+  }
 }
 

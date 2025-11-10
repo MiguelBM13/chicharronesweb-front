@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 // Importamos los componentes de mantenimiento que ahora serán hijos
 import { CategoryMaintenanceComponent } from '../admin/category-maintenance/category-maintenance.component';
 import { ProductMaintenanceComponent } from '../admin/product-maintenance/product-maintenance.component';
+import { GestionPerfilComponent } from '../gestion-perfil/gestion-perfil.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,14 +16,15 @@ import { ProductMaintenanceComponent } from '../admin/product-maintenance/produc
     CommonModule,
     FormsModule,
     CategoryMaintenanceComponent,
-    ProductMaintenanceComponent
+    ProductMaintenanceComponent,
+    GestionPerfilComponent
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent implements OnInit {
   // Variable para controlar la vista actual
-  vistaActual: 'pedidos' | 'categorias' | 'productos' = 'pedidos';
+  vistaActual: 'gestion-perfil'|'pedidos' | 'categorias' | 'productos' = 'pedidos';
 
   pedidos: any[] = [];
   estadosPosibles = ['PENDIENTE', 'EN_PREPARACION', 'LISTO', 'ENTREGADO', 'CANCELADO'];
@@ -34,7 +36,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   // Método para cambiar la vista que se muestra
-  cambiarVista(vista: 'pedidos' | 'categorias' | 'productos') {
+  cambiarVista(vista: 'pedidos' | 'categorias' | 'productos'|'gestion-perfil') {
     this.vistaActual = vista;
   }
 

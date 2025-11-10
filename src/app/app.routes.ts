@@ -10,6 +10,7 @@ import { LandingComponent } from './components/landing/landing.component'; // Im
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { EditPerfilComponent } from './components/edit-perfil/edit-perfil.component';
+import { GestionPerfilComponent } from './components/gestion-perfil/gestion-perfil.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent }, // La landing es la nueva ruta raíz
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'pedidos', component: PedidosComponent },
   { path: 'calificar/:id', component: CalificacionComponent },
   { path: 'edit-perfil', component: EditPerfilComponent },
+  { path:'gestion-perfil',component:GestionPerfilComponent},
   { path: '', redirectTo: '/pedidos', pathMatch: 'full' },
 
   // Rutas protegidas
