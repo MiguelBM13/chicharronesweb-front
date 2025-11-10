@@ -1,63 +1,9 @@
-<!-- Barra de navegación visible solo si el usuario está logueado -->
-<header *ngIf="authService.isLoggedIn">
-  <nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm border-bottom">
-    <div class="container-fluid">
-      <!-- Marca -->
-      <a class="navbar-brand d-flex align-items-center fw-bold text-primary" routerLink="/menu">
-        <i class="bi bi-egg-fried fs-4 me-2"></i> Chicharrones Web
-      </a>
+<!-- ESTRUCTURA ACTUALIZADA: EL NAVBAR AHORA ESTÁ FUERA DEL MAIN -->
+<!-- ESTO PERMITE QUE EL NAVBAR FIXED-TOP FUNCIONE CORRECTAMENTE -->
+<app-nav-bar></app-nav-bar>
 
-      <!-- Botón hamburguesa para móviles -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Contenido colapsable -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <!-- Enlaces de navegación -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center" routerLink="/menu" routerLinkActive="active">
-              <i class="bi bi-list-ul me-1"></i> Menú
-            </a>
-          </li>
-          <li class="nav-item" *ngIf="authService.userRole === 'CLIENTE'">
-            <a class="nav-link d-flex align-items-center" routerLink="/pedidos" routerLinkActive="active">
-              <i class=""></i> Mis compras
-            </a>
-          </li>
-          <li class="nav-item" *ngIf="authService.userRole === 'CLIENTE'">
-            <a class="nav-link d-flex align-items-center" routerLink="/carrito" routerLinkActive="active">
-              <i class="bi bi-cart me-1"></i> Carrito
-            </a>
-          </li>
-          <li class="nav-item" *ngIf="authService.userRole === 'ADMIN'">
-            <a class="nav-link d-flex align-items-center" routerLink="/admin" routerLinkActive="active">
-              <i class="bi bi-tools me-1"></i> Admin
-            </a>
-          </li>
-        </ul>
-
-        <!-- Información del usuario -->
-        <div class="d-flex align-items-center gap-3">
-          <button class="btn btn-link text-muted text-decoration-none d-flex align-items-center p-0"
-            routerLink="/edit-perfil" routerLinkActive="active">
-            <i class="bi bi-person-circle me-2 fs-5"></i>
-            <span>Hola, {{ authService.currentUserValue?.nombre }}</span>
-          </button>
-
-          <button class="btn btn-sm btn-outline-danger" (click)="authService.logout()">
-            <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
-          </button>
-        </div>
-
-      </div>
-    </div>
-  </nav>
-</header>
-
-<!-- Ajuste del contenido principal según el estado de sesión -->
-<main [class.main-content]="authService.isLoggedIn" [class.logged-in]="authService.isLoggedIn" class="pt-5 mt-4">
+<!-- AGREGADO: NGCLASS PARA AGREGAR PADDING-TOP SOLO CUANDO EL USUARIO ESTÁ LOGUEADO -->
+<!-- ESTO EVITA QUE EL NAVBAR TAPE EL CONTENIDO DE LA PÁGINA -->
+<main [ngClass]="{'main-content': authService.isLoggedIn}">
   <router-outlet></router-outlet>
 </main>

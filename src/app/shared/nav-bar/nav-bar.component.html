@@ -1,0 +1,147 @@
+<header>
+    <nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm border-bottom">
+        <div class="container-fluid">
+            <!-- AGREGADO: ROUTERLINK DINÁMICO SEGÚN EL ESTADO DE LOGIN -->
+            <a class="navbar-brand d-flex align-items-center fw-bold text-primary"
+                [routerLink]="authService.isLoggedIn ? '/menu' : '/inicio'">
+                <i class="bi bi-egg-fried fs-4 me-2"></i> Chicharrones Web
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <!-- AGREGADO: SECCIÓN COMPLETA PARA USUARIOS NO LOGUEADOS -->
+                <ng-container *ngIf="!authService.isLoggedIn">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- NAVEGACIÓN PÚBLICA -->
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" routerLink="/inicio"
+                                routerLinkActive="active">
+                                <i class="bi bi-house me-1"></i> Inicio
+                            </a>
+                        </li>
+                        <!-- MÁS ITEMS... -->
+                    </ul>
+
+                    <!-- AGREGADO: BOTONES DE AUTENTICACIÓN Y CARRITO PARA NO LOGUEADOS -->
+                    <div class="d-flex align-items-center gap-2">
+                        <a class="btn btn-sm btn-outline-primary" routerLink="/login">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar
+                        </a>
+                        <a class="btn btn-sm btn-primary" routerLink="/registro">
+                            <i class="bi bi-person-plus me-1"></i> Registrarse
+                        </a>
+                        <!-- AGREGADO: CARRITO CON BADGE DE CONTADOR -->
+                        <a class="btn btn-sm btn-outline-secondary position-relative" routerLink="/carrito">
+                            <i class="bi bi-cart fs-5"></i>
+                            <!-- AGREGADO: BADGE QUE MUESTRA LA CANTIDAD DE ITEMS -->
+                            <!-- SOLO SE MUESTRA SI CARTITEMCOUNT > 0 -->
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                *ngIf="cartItemCount > 0">
+                                {{ cartItemCount }}
+                            </span>
+                        </a>
+                    </div>
+                </ng-container>
+
+                <!-- AGREGADO: SECCIÓN COMPLETA PARA CLIENTES LOGUEADOS -->
+                <ng-container *ngIf="authService.isLoggedIn && authService.userRole === 'CLIENTE'">
+                    <!-- NAVEGACIÓN PARA CLIENTES -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" routerLink="/menu" routerLinkActive="active">
+                                <i class="bi bi-list-ul me-1"></i> Menú
+                            </a>
+                        </li>
+                        <!-- AGREGADO: OPCIÓN MIS COMPRAS SOLO PARA CLIENTES -->
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" routerLink="/pedidos"
+                                routerLinkActive="active">
+                                <i class="bi bi-bag-check me-1"></i> Mis Compras
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- AGREGADO: SECCIÓN DERECHA CON CARRITO, PERFIL Y LOGOUT -->
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- AGREGADO: CARRITO CON CONTADOR TAMBIÉN PARA CLIENTES LOGUEADOS -->
+                        <a class="btn btn-sm btn-outline-secondary position-relative" routerLink="/carrito">
+                            <i class="bi bi-cart fs-5"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                *ngIf="cartItemCount > 0">
+                                {{ cartItemCount }}
+                            </span>
+                        </a>
+
+                        <!-- AGREGADO: BOTÓN DE PERFIL CON NOMBRE DEL USUARIO -->
+                        <!-- D-NONE D-LG-INLINE OCULTA EL TEXTO EN MÓVILES -->
+                        <button class="btn btn-link text-muted text-decoration-none d-flex align-items-center p-0"
+                            routerLink="/edit-perfil" routerLinkActive="active">
+                            <i class="bi bi-person-circle me-2 fs-5"></i>
+                            <span class="d-none d-lg-inline">Hola, {{ authService.currentUserValue?.nombre }}</span>
+                        </button>
+
+                        <!-- AGREGADO: BOTÓN DE CERRAR SESIÓN -->
+                        <button class="btn btn-sm btn-outline-danger" (click)="authService.logout()">
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            <span class="d-none d-lg-inline">Cerrar Sesión</span>
+                        </button>
+                    </div>
+                </ng-container>
+
+                <!-- AGREGADO: SECCIÓN COMPLETA PARA ADMINISTRADORES -->
+                <ng-container *ngIf="authService.isLoggedIn && authService.userRole === 'ADMIN'">
+                    <!-- NAVEGACIÓN ADMINISTRATIVA -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- AGREGADO: OPCIONES EXCLUSIVAS PARA ADMIN -->
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" routerLink="/gestion-pedidos"
+                                routerLinkActive="active">
+                                <i class="bi bi-clipboard-check me-1"></i> Gestión de Pedidos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" routerLink="/mantenimiento"
+                                routerLinkActive="active">
+                                <i class="bi bi-gear me-1"></i> Mantenimiento
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" routerLink="/gestion-perfiles"
+                                routerLinkActive="active">
+                                <i class="bi bi-people me-1"></i> Gestión de Perfiles
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" routerLink="/reportes"
+                                routerLinkActive="active">
+                                <i class="bi bi-graph-up me-1"></i> Reportes
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- AGREGADO: PERFIL Y LOGOUT PARA ADMIN (SIN CARRITO) -->
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-link text-muted text-decoration-none d-flex align-items-center p-0"
+                            routerLink="/edit-perfil" routerLinkActive="active">
+                            <i class="bi bi-person-circle me-2 fs-5"></i>
+                            <span class="d-none d-lg-inline">{{ authService.currentUserValue?.nombre }}</span>
+                        </button>
+
+                        <button class="btn btn-sm btn-outline-danger" (click)="authService.logout()">
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            <span class="d-none d-lg-inline">Cerrar Sesión</span>
+                        </button>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+    </nav>
+</header>
