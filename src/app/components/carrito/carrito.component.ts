@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../services/carrito.service';
 import { PedidoService } from '../../services/pedido.service';
 import { CommonModule } from '@angular/common';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -16,7 +17,8 @@ export class CarritoComponent implements OnInit {
 
   constructor(
     private carritoService: CarritoService,
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -54,4 +56,7 @@ export class CarritoComponent implements OnInit {
       }
     });
   }
+  volverAlMenu() {
+  this.router.navigate(['/menu']);
+}
 }
