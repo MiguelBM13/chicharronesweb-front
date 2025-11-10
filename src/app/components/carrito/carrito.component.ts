@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../services/carrito.service';
 import { PedidoService } from '../../services/pedido.service';
 import { CommonModule } from '@angular/common';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-carrito',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './carrito.component.html',
-  styleUrl: './carrito.component.css'
+  styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
   items: any[] = [];
@@ -18,6 +19,7 @@ export class CarritoComponent implements OnInit {
   constructor(
     private carritoService: CarritoService,
     private pedidoService: PedidoService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -38,17 +40,28 @@ export class CarritoComponent implements OnInit {
       return;
     }
 
-    const detalles = this.items.map(item => {
-      return { productoId: item.id, cantidad: item.cantidad };
-    });
+    const usuario = this.authService.currentUserValue;
+    if (!usuario) {
+      alert("Debes iniciar sesión para realizar un pedido.");
+      return;
+    }
 
-    const pedido = { detalles: detalles };
+    const detalles = this.items.map(item => ({
+      productoId: item.id,
+      cantidad: item.cantidad
+    }));
+
+    const pedido = {
+      usuarioId: usuario.id,
+      detalles: detalles
+    };
 
     this.pedidoService.crearPedido(pedido).subscribe({
       next: (response) => {
         alert('¡Pedido realizado con éxito!');
         console.log('Pedido creado:', response);
         this.carritoService.limpiarCarrito();
+        this.router.navigate(['/pedidos']);
       },
       error: (err) => {
         alert('Hubo un error al realizar el pedido.');
@@ -56,7 +69,8 @@ export class CarritoComponent implements OnInit {
       }
     });
   }
+
   volverAlMenu() {
-  this.router.navigate(['/menu']);
-}
+    this.router.navigate(['/menu']);
+  }
 }

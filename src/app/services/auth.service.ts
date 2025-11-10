@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,9 +11,10 @@ export class AuthService {
   private apiUrl = 'http://localhost:8080/api/usuarios';
   private currentUserSubject: BehaviorSubject<any>;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router,) {
     const storedUser = localStorage.getItem('currentUser');
     this.currentUserSubject = new BehaviorSubject<any>(storedUser ? JSON.parse(storedUser) : null);
+    
   }
 
   public get currentUserValue(): any {
@@ -45,10 +47,19 @@ export class AuthService {
   }
 
   logout() {
+    const usuario = this.currentUserValue;
+
+    // ✅ Si había usuario, elimina su carrito del localStorage
+    if (usuario && usuario.id) {
+      localStorage.removeItem(`carrito_${usuario.id}`);
+    }
+
+    // Limpia la sesión
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
+
   actualizarPerfil(id: number, datos: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, datos);
   }
