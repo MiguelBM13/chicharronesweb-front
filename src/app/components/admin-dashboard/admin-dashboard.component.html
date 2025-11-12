@@ -8,12 +8,6 @@
   <ul class="nav nav-pills justify-content-center mb-4 flex-wrap gap-3">
     <li class="nav-item">
       <a class="nav-link d-flex align-items-center gap-2 px-4 py-2 rounded-pill"
-        [class.active]="vistaActual === 'pedidos'" (click)="cambiarVista('pedidos')" href="javascript:void(0)">
-        <i class="bi bi-receipt fs-5"></i> Gestión de Pedidos
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center gap-2 px-4 py-2 rounded-pill"
         [class.active]="vistaActual === 'productos'" (click)="cambiarVista('productos')" href="javascript:void(0)">
         <i class="bi bi-box-seam fs-5"></i> Mantenimiento de Productos
       </a>
@@ -24,79 +18,17 @@
         <i class="bi bi-tags fs-5"></i> Mantenimiento de Categorías
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center gap-2 px-4 py-2 rounded-pill"
-        [class.active]="vistaActual === 'gestion-perfil'" (click)="cambiarVista('gestion-perfil')" href="javascript:void(0)">
-        <i class="bi bi-tags fs-5"></i> Perfiles
-      </a>
-    </li>
   </ul>
 
   <!-- Contenido dinámico -->
   <div class="tab-content p-4 border rounded-4 shadow bg-white">
     <div [ngSwitch]="vistaActual">
 
-      <!-- Vista de Pedidos -->
-      <div *ngSwitchCase="'pedidos'">
-        <h3 class="mb-4 text-secondary">
-          <i class="bi bi-list-check me-2"></i> Pedidos Recibidos
-        </h3>
-
-        <div *ngIf="pedidos.length === 0" class="alert alert-info text-center rounded-pill">
-          <i class="bi bi-info-circle me-2"></i> No hay pedidos por el momento.
-        </div>
-
-        <div *ngIf="pedidos.length > 0" class="table-responsive">
-          <table class="table table-hover table-bordered align-middle">
-            <thead class="table-light text-center">
-              <tr class="align-middle">
-                <th>ID</th>
-                <th>Fecha y Hora</th>
-                <th>Total</th>
-                <th>Estado</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let pedido of pedidos">
-                <td class="text-center fw-semibold">#{{ pedido.id }}</td>
-                <td>{{ pedido.fechaHora | date:'dd/MM/yyyy HH:mm' }}</td>
-                <td>S/ {{ pedido.total.toFixed(2) }}</td>
-                <td>
-                  <span class="badge rounded-pill px-3 py-2" [ngClass]="{
-                    'bg-warning text-dark': pedido.estado === 'PENDIENTE',
-                    'bg-info text-dark': pedido.estado === 'EN_PREPARACION',
-                    'bg-success': pedido.estado === 'LISTO',
-                    'bg-primary': pedido.estado === 'ENTREGADO',
-                    'bg-danger': pedido.estado === 'CANCELADO'
-                  }">
-                    {{ pedido.estado }}
-                  </span>
-                </td>
-                <td>
-                  <select class="form-select form-select-sm" [ngModel]="pedido.estado"
-                    (change)="cambiarEstado(pedido, $event)">
-                    <option *ngFor="let estado of estadosPosibles" [value]="estado">
-                      {{ estado }}
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
       <!-- Vista de Productos -->
       <div *ngSwitchCase="'productos'">
         <app-product-maintenance></app-product-maintenance>
       </div>
 
-
-  <div *ngSwitchCase="'gestion-perfil'">
-        <app-gestion-perfil></app-gestion-perfil>
-      </div>
-      
       <!-- Vista de Categorías -->
       <div *ngSwitchCase="'categorias'">
         <app-category-maintenance></app-category-maintenance>

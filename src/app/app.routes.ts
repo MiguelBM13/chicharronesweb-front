@@ -10,7 +10,8 @@ import { LandingComponent } from './components/landing/landing.component'; // Im
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { EditPerfilComponent } from './components/edit-perfil/edit-perfil.component';
-import { GestionPerfilComponent } from './components/gestion-perfil/gestion-perfil.component';
+import { GestionPerfilComponent } from './components/admin/gestion-perfil/gestion-perfil.component';
+import { GestionPedidosComponent } from './components/admin/gestion-pedidos/gestion-pedidos.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent }, // La landing es la nueva ruta raíz
@@ -19,12 +20,20 @@ export const routes: Routes = [
   { path: 'pedidos', component: PedidosComponent },
   { path: 'calificar/:id', component: CalificacionComponent },
   { path: 'edit-perfil', component: EditPerfilComponent },
-  { path:'gestion-perfil',component:GestionPerfilComponent},
   { path: '', redirectTo: '/pedidos', pathMatch: 'full' },
 
   // Rutas protegidas
   { path: 'menu', component: MenuComponent, canActivate: [authGuard] },
   { path: 'carrito', component: CarritoComponent, canActivate: [authGuard] },
+
+  {
+    path: 'gestion-perfil', component: GestionPerfilComponent,
+    canActivate: [authGuard, adminGuard]
+  },
+    {
+    path: 'gestion-pedidos', component: GestionPedidosComponent,
+    canActivate: [authGuard, adminGuard]
+  },
   {
     path: 'admin',
     component: AdminDashboardComponent,
