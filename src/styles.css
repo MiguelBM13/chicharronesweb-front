@@ -1,0 +1,20 @@
+.navbar .btn-primary {
+  background-color: #B65142;
+  border-color: #B65142;
+  color: #fff;
+}
+
+.navbar .btn-primary:hover {
+  background-color: #a24538;
+  border-color: #a24538;
+}
+
+.navbar .btn-outline-primary {
+  color: #B65142;
+  border-color: #B65142;
+}
+
+.navbar .btn-outline-primary:hover {
+  background-color: #B65142;
+  color: #fff;
+}

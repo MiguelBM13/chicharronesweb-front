@@ -1,0 +1,54 @@
+header{
+    margin-bottom: 30px;
+}
+.notificaciones-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-notificaciones {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  position: relative;
+}
+
+.badge {
+  background: red;
+  color: white;
+  font-size: 11px;
+  border-radius: 50%;
+  padding: 2px 6px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.panel-notificaciones {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  width: 260px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 10px;
+  z-index: 100;
+}
+
+.panel-notificaciones ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.panel-notificaciones li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.panel-notificaciones li:last-child {
+  border-bottom: none;
+}

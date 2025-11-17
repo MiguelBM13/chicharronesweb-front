@@ -1,0 +1,9 @@
+<!-- ESTRUCTURA ACTUALIZADA: EL NAVBAR AHORA ESTÁ FUERA DEL MAIN -->
+<!-- ESTO PERMITE QUE EL NAVBAR FIXED-TOP FUNCIONE CORRECTAMENTE -->
+<app-nav-bar></app-nav-bar>
+
+<!-- AGREGADO: NGCLASS PARA AGREGAR PADDING-TOP SOLO CUANDO EL USUARIO ESTÁ LOGUEADO -->
+<!-- ESTO EVITA QUE EL NAVBAR TAPE EL CONTENIDO DE LA PÁGINA -->
+<main [ngClass]="{'main-content': authService.isLoggedIn}">
+  <router-outlet></router-outlet>
+</main>

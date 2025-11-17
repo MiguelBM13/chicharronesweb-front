@@ -1,0 +1,42 @@
+/* Para que los íconos de Bootstrap se vean, esta regla DEBE ir primero */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+
+.product-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+}
+
+.card-img-top {
+    height: 200px;
+    /* Cambiamos 'cover' por 'contain' para que se vea toda la imagen */
+    object-fit: contain;
+    /* Añadimos un fondo claro para el espacio que pueda quedar vacío */
+    background-color: #f8f9fa;
+}
+
+.nav-pills .nav-link {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #ffc107 !important; /* Color amarillo de Bootstrap */
+    color: #212529;
+}
+.toast-container {
+  max-width: 300px;
+}
+
+.toast-body {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.toast.bg-success {
+  background: linear-gradient(90deg, #28a745, #218838);
+}
+

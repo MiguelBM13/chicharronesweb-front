@@ -1,0 +1,51 @@
+.notificaciones-container {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notificacion {
+  border-left: 5px solid #B65142;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #fdf3f2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notificacion.leida {
+  opacity: 0.7;
+  background: #f6f6f6;
+  border-left-color: #ccc;
+}
+
+.notificacion .info p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.btn-leer {
+  background: #B65142;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.btn-leer:hover {
+  background: #953d32;
+}
+
+.sin-notificaciones {
+  text-align: center;
+  color: #777;
+  padding: 15px;
+}

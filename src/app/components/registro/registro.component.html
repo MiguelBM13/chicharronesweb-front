@@ -1,0 +1,43 @@
+<div class="container-fluid login-page-container">
+  <div class="row g-0 vh-100">
+    <!-- Columna Izquierda: Bienvenida y Branding -->
+    <div class="col-lg-7 d-none d-lg-flex flex-column justify-content-center align-items-center login-branding-col">
+      <h1 class="display-3 text-white fw-bold">Únete a la Familia</h1>
+      <p class="lead text-white-50 mt-3">Crea tu cuenta y empieza a disfrutar del mejor sabor.</p>
+    </div>
+
+    <!-- Columna Derecha: Formulario de Registro -->
+    <div class="col-lg-5 d-flex justify-content-center align-items-center bg-light">
+      <div class="login-form-wrapper">
+        <h2 class="text-center mb-4">Crear una Cuenta</h2>
+        <form (ngSubmit)="onRegister()">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre Completo" [(ngModel)]="userData.nombre" required>
+            <label for="nombre">Nombre Completo</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" name="email" placeholder="nombre@ejemplo.com" [(ngModel)]="userData.email" required>
+            <label for="email">Correo Electrónico</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" [(ngModel)]="userData.password" required>
+            <label for="password">Contraseña</label>
+          </div>
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+            {{ error }}
+          </div>
+          <div *ngIf="success" class="alert alert-success mt-3 text-center">
+            {{ success }}
+          </div>
+        </form>
+        <div class="text-center mt-4">
+          <small class="text-muted">¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

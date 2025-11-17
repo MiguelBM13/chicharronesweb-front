@@ -1,0 +1,85 @@
+<div class="container py-5">
+  <!-- Encabezado -->
+  <div class="text-center mb-5">
+    <h1 class="display-4 text-gradient fw-bold">
+      Nuestro Delicioso Menú
+    </h1>
+    <p class="lead text-muted">Explora nuestras especialidades y elige tus favoritas.</p>
+  </div>
+
+  <!-- Filtros y búsqueda -->
+  <div class="row mb-4 align-items-center">
+    <!-- Filtros por categoría -->
+    <div class="col-lg-8 mb-3 mb-lg-0">
+      <ul class="nav nav-pills nav-fill gap-2">
+        <li class="nav-item">
+          <a class="nav-link rounded-pill px-4 py-2" [class.active]="categoriaSeleccionadaId === null"
+            (click)="filtrarPorCategoria(null)" href="javascript:void(0)">
+            Todos
+          </a>
+        </li>
+        <li class="nav-item" *ngFor="let cat of categorias">
+          <a class="nav-link rounded-pill px-4 py-2" [class.active]="categoriaSeleccionadaId === cat.id"
+            (click)="filtrarPorCategoria(cat.id)" href="javascript:void(0)">
+            {{ cat.nombre }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="col-lg-4">
+      <div class="input-group shadow-sm">
+        <input type="text" class="form-control" placeholder="Buscar producto..." [(ngModel)]="terminoBusqueda"
+          (input)="aplicarFiltros()">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-search text-muted"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cargando productos -->
+  <div *ngIf="productos.length === 0" class="text-center py-5">
+    <div class="spinner-border text-warning" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <!-- Lista de productos -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let producto of productosFiltrados">
+      <div class="card h-100 shadow product-card border-0 rounded-4">
+        <img [src]="'assets/images/' +producto.imagen_url || 'https://placehold.co/600x400/EFEFEF/AAAAAA&text=Imagen'"
+          class="card-img-top" alt="Imagen de {{ producto.nombre }}">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title fw-semibold">{{ producto.nombre }}</h5>
+          <p class="card-text text-muted small">{{ producto.descripcion }}</p>
+          <div class="mt-auto pt-3">
+            <p class="h4 text-warning fw-bold">S/ {{ producto.precio.toFixed(2) }}</p>
+            <button class="btn btn-warning w-100 fw-bold" (click)="agregarProducto(producto)">
+              <i class="bi bi-cart-plus me-1"></i> Añadir al Carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="productosFiltrados.length === 0 && productos.length > 0"
+    class="alert alert-info mt-5 text-center rounded-pill">
+    <i class="bi bi-emoji-frown me-2"></i> No se encontraron productos que coincidan con tu búsqueda.
+  </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+  <div *ngIf="mensajeToast" class="toast align-items-center text-white bg-success border-0 show" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="bi bi-check-circle me-2"></i> {{ mensajeToast }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="cerrarToast()"></button>
+    </div>
+  </div>
+</div>

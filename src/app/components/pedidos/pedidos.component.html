@@ -1,0 +1,57 @@
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h1 class="fw-bold text-primary">
+      <i class="bi bi-bag-check me-2"></i> Mis Pedidos
+    </h1>
+  </div>
+
+  <!-- Estado de carga -->
+  <div *ngIf="cargando" class="text-center py-5">
+    <div class="spinner-border text-primary mb-3" role="status"></div>
+    <p class="text-muted">Cargando pedidos...</p>
+  </div>
+
+  <!-- Si no hay pedidos -->
+  <div *ngIf="!cargando && pedidos.length === 0" class="text-center py-5">
+    <i class="bi bi-box-seam text-muted fs-1 d-block mb-3"></i>
+    <p class="lead text-muted mb-4">No tienes pedidos registrados.</p>
+    <a class="btn btn-outline-primary btn-lg" routerLink="/menu">
+      <i class="bi bi-arrow-left me-2"></i> Ir al Menú
+    </a>
+  </div>
+
+  <!-- Lista de pedidos -->
+  <div *ngIf="!cargando && pedidos.length > 0" class="row g-4">
+    <div *ngFor="let pedido of pedidos" class="col-12 col-md-6 col-lg-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0 fw-bold">Pedido #{{ pedido.id }}</h5>
+            <span class="badge px-3 py-2 text-uppercase" [ngClass]="obtenerClaseEstado(pedido.estado)">
+              {{ pedido.estado }}
+            </span>
+          </div>
+
+          <p class="mb-1"><strong>Fecha:</strong> {{ formatearFecha(pedido.fechaHora) }}</p>
+          <p class="mb-2"><strong>Total:</strong> S/ {{ pedido.total.toFixed(2) }}</p>
+
+          <ul class="list-unstyled mb-3">
+            <li *ngFor="let detalle of pedido.detalles" class="border-bottom py-1">
+              {{ detalle.cantidad }} × {{ detalle.producto.nombre }}
+              <span class="float-end fw-semibold text-success">
+                S/ {{ detalle.precioUnitario.toFixed(2) }}
+              </span>
+            </li>
+          </ul>
+
+          <!-- Botón para calificar solo si está LISTO -->
+          <button *ngIf="pedido.estado.toUpperCase() !== 'PENDIENTE'" class="btn btn-primary btn-sm"
+            [routerLink]="['/calificar', pedido.id]">
+            <i class="bi bi-star me-1"></i> Calificar Pedido
+          </button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

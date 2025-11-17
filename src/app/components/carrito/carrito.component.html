@@ -1,0 +1,45 @@
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h1 class="fw-bold text-primary">
+      <i class="bi bi-cart3 me-2"></i> Tu Carrito de Compras
+    </h1>
+  </div>
+
+  <!-- Carrito vacío -->
+  <div *ngIf="items.length === 0" class="text-center py-5">
+    <i class="bi bi-bag-x text-muted fs-1 d-block mb-3"></i>
+    <p class="lead text-muted mb-4">Tu carrito está vacío.</p>
+    <button class="btn btn-outline-primary btn-lg" (click)="volverAlMenu()">
+      <i class="bi bi-arrow-left me-2"></i> Volver al Menú
+    </button>
+
+  </div>
+
+  <!-- Carrito con productos -->
+  <div *ngIf="items.length > 0" class="card shadow-sm border-0">
+    <div class="card-body">
+      <ul class="list-group list-group-flush mb-4">
+        <li *ngFor="let item of items" class="list-group-item d-flex justify-content-between align-items-center py-3">
+          <div class="d-flex flex-column">
+            <span class="fw-semibold fs-5 text-dark">{{ item.nombre }}</span>
+            <small class="text-muted">Cantidad: {{ item.cantidad }}</small>
+          </div>
+          <span class="fw-bold text-success fs-5">
+            S/ {{ (item.precio * item.cantidad).toFixed(2) }}
+          </span>
+        </li>
+      </ul>
+
+      <div class="d-flex justify-content-between align-items-center border-top pt-3">
+        <h4 class="mb-0 fw-bold">Total:</h4>
+        <h4 class="mb-0 text-primary fw-bold">S/ {{ total.toFixed(2) }}</h4>
+      </div>
+
+      <div class="text-end mt-4">
+        <button class="btn btn-primary btn-lg px-4" (click)="realizarPedido()">
+          <i class="bi bi-credit-card me-2"></i> Realizar Pedido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
