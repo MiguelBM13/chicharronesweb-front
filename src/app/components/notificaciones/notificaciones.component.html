@@ -1,0 +1,17 @@
+<button (click)="mostrarPanel = !mostrarPanel">
+    🔔
+</button>
+
+<div *ngIf="mostrarPanel" class="panel-notificaciones">
+    <div *ngIf="notificaciones.length === 0">No tienes notificaciones pendientes.</div>
+
+    <div *ngFor="let n of notificaciones" class="notificacion" [class.leida]="n.leida">
+        <strong>{{ n.tipo }}</strong>
+        <p>{{ n.mensaje }}</p>
+        <small>{{ n.fecha | date:'short' }}</small>
+
+        <button *ngIf="!n.leida" class="btn-leer" (click)="marcarComoLeida(n.id)">
+            Marcar como leída
+        </button>
+    </div>
+</div>
