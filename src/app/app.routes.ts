@@ -13,6 +13,7 @@ import { EditPerfilComponent } from './components/edit-perfil/edit-perfil.compon
 import { GestionPerfilComponent } from './components/admin/gestion-perfil/gestion-perfil.component';
 import { GestionPedidosComponent } from './components/admin/gestion-pedidos/gestion-pedidos.component';
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
+import { GraficosComponent } from './components/graficos/graficos.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent }, // La landing es la nueva ruta raíz
@@ -39,6 +40,10 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboardComponent,
+    canActivate: [authGuard, adminGuard]
+  },
+    {
+    path: 'grafico', component: GraficosComponent,
     canActivate: [authGuard, adminGuard]
   },
 
