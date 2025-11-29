@@ -1,0 +1,299 @@
+/* Contenedor principal */
+.gestion-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header */
+.header-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.titulo-principal {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #5c2e1f;
+    margin-bottom: 0.5rem;
+}
+
+.subtitulo {
+    color: #6c757d;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* Tarjeta de tabla */
+.table-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Tabla */
+.table-usuarios {
+    margin-bottom: 0;
+}
+
+.table-usuarios thead {
+    background-color: #f0a78f;
+}
+
+.table-usuarios thead th {
+    color: #5c2e1f;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none;
+    text-align: center;
+}
+
+.table-usuarios tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.95rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table-usuarios tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table-usuarios tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.005);
+}
+
+/* Badges de rol */
+.badge-rol {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-admin {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.badge-cliente {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+/* Botón de acción */
+.btn-accion {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-editar:hover {
+    background-color: #ffb300;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+/* Alert sin usuarios */
+.alert-custom {
+    background-color: #cfe2ff;
+    color: #084298;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal card */
+.modal-card {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Header del modal */
+.modal-header-custom {
+    background: linear-gradient(135deg, #5c2e1f 0%, #7a3e2b 100%);
+    color: #ffffff;
+    padding: 1.5rem 2rem;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-titulo {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.btn-close-custom {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease;
+}
+
+.btn-close-custom:hover {
+    transform: rotate(90deg);
+}
+
+/* Body del modal */
+.modal-body-custom {
+    padding: 2rem;
+}
+
+.form-group-custom {
+    margin-bottom: 1.5rem;
+}
+
+.form-label-custom {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.form-control-custom {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.form-control-custom:focus {
+    outline: none;
+    border-color: #5c2e1f;
+    box-shadow: 0 0 0 0.2rem rgba(92, 46, 31, 0.25);
+}
+
+/* Footer del modal */
+.modal-footer-custom {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-modal {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-guardar {
+    background-color: #0f5132;
+    color: #ffffff;
+}
+
+.btn-guardar:hover {
+    background-color: #0a3622;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 81, 50, 0.3);
+}
+
+.btn-cancelar {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-cancelar:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gestion-container {
+        padding: 1rem;
+    }
+
+    .titulo-principal {
+        font-size: 1.5rem;
+    }
+
+    .table-usuarios thead th,
+    .table-usuarios tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .modal-card {
+        width: 95%;
+        margin: 1rem;
+    }
+
+    .modal-body-custom {
+        padding: 1.5rem;
+    }
+}

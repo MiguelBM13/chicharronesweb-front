@@ -1,35 +1,96 @@
-/* Para que los íconos de Bootstrap se vean, esta regla DEBE ir primero */
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+/* Evita el scroll innecesario */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Bloquea scroll en toda la página */
+}
 
+/* Contenedor fijo sin scroll */
 .login-page-container {
-    padding: 0;
-    overflow: hidden; /* Evita barras de scroll innecesarias */
+  position: fixed; /* Cambiar de relative a fixed */
+  inset: 0; /* top: 0, right: 0, bottom: 0, left: 0 */
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  overflow: hidden;
 }
 
+/* Imagen de fondo */
+.login-page-container::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('/assets/images/Logol.jpg') center/cover no-repeat;
+  filter: blur(5px);
+  transform: scale(1.05);
+  z-index: -2;
+}
+
+/* Capa oscura */
+.login-page-container::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+/* Row sin altura extra */
+.row.vh-100 {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Columna ocupa todo sin generar altura extra */
+.col-lg-5 {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  height: auto;
+}
+
+/* Fondo transparente */
+.col-lg-5.bg-light {
+  background-color: transparent !important;
+}
+
+/* Ocultar columna izquierda */
 .login-branding-col {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/images/Logol.jpg');
-    background-size: cover;
-    background-position: center;
+  display: none !important;
 }
 
+/* Tarjeta del formulario */
 .login-form-wrapper {
-    width: 100%;
-    max-width: 400px;
-    padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 440px;
+  width: 100%;
+  max-height: 90vh; /* Evita que se salga en pantallas pequeñas */
+  overflow-y: auto; /* Solo scroll interno si es necesario */
 }
 
-.form-floating > .form-control:focus ~ label,
-.form-floating > .form-control:not(:placeholder-shown) ~ label {
-    transform: scale(.85) translateY(-.5rem) translateX(.15rem);
+/* Inputs y botón */
+.form-floating > .form-control {
+  border-radius: 10px;
+  border: 1px solid #ddd;
 }
 
-.extra-links a {
-  color: var(--primary-color, #d8a404);
-  text-decoration: underline;
-  cursor: pointer;
-  font-weight: bold;
+.login-form-wrapper .btn-primary {
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.75rem;
 }
 
-.extra-links a:hover {
-  text-decoration: none;
+/* Responsive */
+@media (max-width: 576px) {
+  .login-form-wrapper {
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+    max-height: 85vh;
+  }
 }

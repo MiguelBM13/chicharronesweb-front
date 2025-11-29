@@ -1,5 +1,382 @@
-/* Estilos adicionales para el componente de productos si son necesarios */
-.card-header h4 {
-    font-size: 1.2rem;
-    font-weight: 500;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Contenedor principal */
+.productos-container {
+    padding: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header con título y botón */
+.header-productos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.titulo-productos {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #5c2e1f;
+    margin: 0;
+}
+
+.btn-nuevo-producto {
+    background-color: #0f5132;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-nuevo-producto:hover {
+    background-color: #0a3622;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(15, 81, 50, 0.3);
+}
+
+/* Tarjeta de tabla */
+.table-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Tabla */
+.table-productos {
+    margin-bottom: 0;
+}
+
+.table-productos thead {
+    background-color: #5c2e1f;
+}
+
+.table-productos thead th {
+    color: #5c2e1f;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none;
+    text-align: center;
+}
+
+.table-productos tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.9rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table-productos tbody tr:hover {
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+}
+
+/* Imagen del producto en tabla */
+.producto-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 2px solid #e9ecef;
+}
+
+/* Descripción truncada */
+.text-descripcion {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+/* URL truncada */
+.text-url {
+    display: inline-block;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+/* Badge de disponibilidad */
+.badge-disponibilidad {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-disponible {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.badge-no-disponible {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* Botones de acción */
+.btn-accion {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-editar:hover {
+    background-color: #ffb300;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Scroll personalizado */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal card */
+.modal-card-producto {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Header del modal */
+.modal-header-producto {
+    background: linear-gradient(135deg, #5c2e1f 0%, #7a3e2b 100%);
+    color: #ffffff;
+    padding: 1.5rem 2rem;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header-producto h5 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease;
+}
+
+.btn-close-modal:hover {
+    transform: rotate(90deg);
+}
+
+/* Body del modal */
+.modal-body-producto {
+    padding: 2rem;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #5c2e1f;
+    box-shadow: 0 0 0 0.2rem rgba(92, 46, 31, 0.25);
+}
+
+.input-group-text {
+    background-color: #5c2e1f;
+    color: #ffffff;
+    border: 1px solid #5c2e1f;
+    font-weight: 600;
+    border-radius: 8px 0 0 8px;
+}
+
+.input-group .form-control {
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+}
+
+.form-check-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: #5c2e1f;
+    border-color: #5c2e1f;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #5c2e1f;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #4a2318;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .productos-container {
+        padding: 1rem;
+    }
+
+    .header-productos {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .btn-nuevo-producto {
+        width: 100%;
+    }
+
+    .titulo-productos {
+        font-size: 1.5rem;
+    }
+
+    .table-productos thead th,
+    .table-productos tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .text-descripcion,
+    .text-url {
+        max-width: 150px;
+    }
 }

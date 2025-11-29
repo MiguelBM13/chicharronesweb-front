@@ -1,4 +1,205 @@
-h3{
-    padding: 50px;
+/* Contenedor del título */
+.titulo-principal {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #5c2e1f;
+    margin-bottom: 0.5rem;
     text-align: center;
+    margin-bottom: 2rem;
+
+}
+.gestion-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Alert de "no hay pedidos" */
+.alert-info {
+    background-color: #cfe2ff;
+    border: none;
+    color: #084298;
+    font-weight: 500;
+}
+
+/* Tabla principal */
+.table {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: none !important;
+}
+
+/* Header de la tabla - fondo gris claro */
+.table thead.table-light {
+    background-color: #e9ecef !important;
+}
+
+.table thead th {
+    padding: 1rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #495057;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none !important;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Celdas del body */
+.table tbody td {
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #212529;
+    border: none !important;
+    border-bottom: 1px solid #e9ecef !important;
+    vertical-align: middle;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+/* Filas con hover */
+.table-hover tbody tr {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa !important;
+    transform: scale(1.005);
+}
+
+/* ID en negrita */
+.table tbody td.fw-semibold {
+    font-weight: 700;
+    color: #212529;
+}
+
+/* Badges de estado personalizados */
+.badge.rounded-pill {
+    padding: 0.5rem 1.25rem !important;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    min-width: 110px;
+    display: inline-block;
+    border-radius: 6px !important;
+}
+
+/* Estados específicos */
+.badge.bg-warning {
+    background-color: #fff3cd !important;
+    color: #856404 !important;
+}
+
+.badge.bg-info {
+    
+    background-color: #cfe2ff !important;
+    color: #084298 !important;
+}
+
+.badge.bg-success {
+    background-color: #d1e7dd !important;
+    color: #0f5132 !important;
+}
+
+.badge.bg-primary {
+    background-color: #cfe2ff !important;
+    color: #084298 !important;
+}
+
+.badge.bg-danger {
+    background-color: #f8d7da !important;
+    color: #842029 !important;
+}
+
+/* Select de cambio de estado */
+.form-select.form-select-sm {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-select.form-select-sm:focus {
+    border-color: #5c2e1f;
+    box-shadow: 0 0 0 0.2rem rgba(92, 46, 31, 0.25);
+}
+
+.form-select.form-select-sm:hover {
+    border-color: #5c2e1f;
+}
+
+/* Responsive */
+.table-responsive {
+    border-radius: 8px;
+    overflow-x: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Eliminar bordes externos de bootstrap */
+.table-bordered {
+    border: none !important;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+}
+
+/* Primera fila sin borde superior */
+.table tbody tr:first-child td {
+    border-top: none !important;
+}
+
+/* Última fila sin borde inferior */
+.table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+
+    .table thead th,
+    .table tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .badge.rounded-pill {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.75rem;
+        min-width: 90px;
+    }
+
+    .form-select.form-select-sm {
+        font-size: 0.8rem;
+    }
 }

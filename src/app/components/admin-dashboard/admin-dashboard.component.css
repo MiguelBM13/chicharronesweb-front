@@ -1,0 +1,16 @@
+/* Contenedor del título */
+.titulo-principal {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #5c2e1f;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+}
+.gestion-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+}

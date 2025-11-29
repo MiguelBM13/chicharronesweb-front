@@ -1,48 +1,138 @@
-<div class="row g-4">
-  <!-- Columna de la lista de categorías -->
-  <div class="col-lg-6">
-    <div class="card h-100">
-      <div class="card-header">
-        <h4 class="mb-0">Categorías Existentes</h4>
+<div class="categorias-container">
+  <!-- Header con botón -->
+  <div class="header-categorias">
+    <h3 class="titulo-categorias">
+      <i class="bi bi-bookmark-fill me-2"></i> Gestión de Categorías
+    </h3>
+    <button class="btn-nueva-categoria" (click)="nuevoFormulario()">
+      <i class="bi bi-plus-circle me-1"></i> Nueva Categoría
+    </button>
+  </div>
+
+  <!-- Tabla de categorías -->
+  <div class="table-card">
+    <div class="table-responsive">
+      <table class="table table-categorias align-middle">
+        <thead>
+          <tr>
+            <th>NOMBRE</th>
+            <th>DESCRIPCIÓN</th>
+            <th class="text-center">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="categorias.length === 0">
+            <td colspan="3" class="text-center text-muted py-4">
+              <i class="bi bi-inbox me-2"></i> No hay categorías para mostrar.
+            </td>
+          </tr>
+
+          <tr *ngFor="let cat of categorias">
+            <td>
+              <span class="fw-semibold categoria-nombre">
+                <i class="bi bi-tag-fill me-2 text-primary"></i>
+                {{ cat.nombre }}
+              </span>
+            </td>
+            <td>
+              <span class="text-descripcion-cat">{{ cat.descripcion || 'Sin descripción' }}</span>
+            </td>
+            <td class="text-center">
+              <div class="d-flex justify-content-center gap-2">
+                <button class="btn-accion-cat btn-editar-cat" (click)="seleccionarCategoria(cat)">
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn-accion-cat btn-eliminar-cat" (click)="abrirModalEliminar(cat)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal de edición/creación -->
+  <div *ngIf="mostrarModal" class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-card-categoria" (click)="$event.stopPropagation()">
+      <div class="modal-header-categoria">
+        <h5 class="mb-0">
+          <i class="bi bi-bookmark me-2"></i>
+          {{ esNuevo ? 'Nueva Categoría' : 'Editar Categoría' }}
+        </h5>
+        <button class="btn-close-modal" (click)="cerrarModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
-      <div class="list-group list-group-flush">
-        <div *ngIf="categorias.length === 0" class="list-group-item">
-          No hay categorías para mostrar.
-        </div>
-        <a *ngFor="let cat of categorias" href="javascript:void(0)"
-           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-           [class.active]="categoriaSeleccionada.id === cat.id"
-           (click)="seleccionarCategoria(cat)">
-          {{ cat.nombre }}
-          <button (click)="eliminarCategoria(cat.id); $event.stopPropagation()" class="btn btn-sm btn-outline-danger ms-2">
-            <i class="bi bi-trash"></i> Eliminar
-          </button>
-        </a>
+
+      <div class="modal-body-categoria">
+        <form (ngSubmit)="guardarCategoria()">
+          <div class="mb-3">
+            <label for="cat-nombre" class="form-label">
+              <i class="bi bi-tag me-1"></i> Nombre de la Categoría
+            </label>
+            <input type="text" id="cat-nombre" name="nombre" class="form-control"
+              [(ngModel)]="categoriaSeleccionada.nombre" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="cat-descripcion" class="form-label">
+              <i class="bi bi-card-text me-1"></i> Descripción
+            </label>
+            <textarea id="cat-descripcion" name="descripcion" class="form-control"
+              [(ngModel)]="categoriaSeleccionada.descripcion" rows="4"></textarea>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
+              <i class="bi bi-x-circle me-1"></i> Cancelar
+            </button>
+
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check-circle me-1"></i>
+              {{ esNuevo ? 'Crear Categoría' : 'Guardar Cambios' }}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 
-  <!-- Columna del formulario de edición/creación -->
-  <div class="col-lg-6">
-    <div class="card h-100">
-      <div class="card-header">
-        <h4 class="mb-0">{{ esNuevo ? 'Nueva Categoría' : 'Editar Categoría' }}</h4>
+  <!-- Modal de confirmación de eliminación -->
+  <div *ngIf="mostrarModalEliminar" class="modal-overlay" (click)="cerrarModalEliminar()">
+    <div class="modal-eliminar-cat" (click)="$event.stopPropagation()">
+      <div class="modal-eliminar-header">
+        <div class="icono-advertencia">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <h4 class="modal-eliminar-titulo">¿Eliminar Categoría?</h4>
       </div>
-      <div class="card-body">
-        <form (ngSubmit)="guardarCategoria()">
-          <div class="mb-3">
-            <label for="cat-nombre" class="form-label">Nombre:</label>
-            <input type="text" id="cat-nombre" name="nombre" class="form-control" [(ngModel)]="categoriaSeleccionada.nombre" required>
+
+      <div class="modal-eliminar-body">
+        <p class="texto-confirmacion">
+          Estás a punto de eliminar la categoría:
+        </p>
+        <div class="categoria-info">
+          <i class="bi bi-bookmark-fill icono-categoria"></i>
+          <div>
+            <strong>{{ categoriaAEliminar?.nombre }}</strong>
+            <div class="text-muted">{{ categoriaAEliminar?.descripcion }}</div>
           </div>
-          <div class="mb-3">
-            <label for="cat-descripcion" class="form-label">Descripción:</label>
-            <textarea id="cat-descripcion" name="descripcion" class="form-control" [(ngModel)]="categoriaSeleccionada.descripcion" rows="3"></textarea>
-          </div>
-          <div class="d-flex justify-content-end gap-2 mt-4">
-            <button type="button" class="btn btn-secondary" (click)="nuevoFormulario()" *ngIf="!esNuevo">Cancelar</button>
-            <button type="submit" class="btn btn-primary">{{ esNuevo ? 'Crear Categoría' : 'Actualizar Cambios' }}</button>
-          </div>
-        </form>
+        </div>
+        <p class="texto-advertencia">
+          <i class="bi bi-info-circle me-1"></i>
+          Esta acción eliminará todos los productos asociados a esta categoría
+        </p>
+      </div>
+
+      <div class="modal-eliminar-footer">
+        <button class="btn-modal-eliminar btn-cancelar-eliminar" (click)="cerrarModalEliminar()">
+          <i class="bi bi-x-circle me-1"></i> Cancelar
+        </button>
+        <button class="btn-modal-eliminar btn-confirmar-eliminar" (click)="confirmarEliminar()">
+          <i class="bi bi-trash-fill me-1"></i> Eliminar
+        </button>
       </div>
     </div>
   </div>

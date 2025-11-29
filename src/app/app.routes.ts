@@ -12,6 +12,7 @@ import { adminGuard } from './guards/admin.guard';
 import { EditPerfilComponent } from './components/edit-perfil/edit-perfil.component';
 import { GestionPerfilComponent } from './components/admin/gestion-perfil/gestion-perfil.component';
 import { GestionPedidosComponent } from './components/admin/gestion-pedidos/gestion-pedidos.component';
+import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent }, // La landing es la nueva ruta raíz
@@ -25,6 +26,7 @@ export const routes: Routes = [
   // Rutas protegidas
   { path: 'menu', component: MenuComponent, canActivate: [authGuard] },
   { path: 'carrito', component: CarritoComponent, canActivate: [authGuard] },
+  {path:'notificaciones',component:NotificacionesComponent, canActivate: [authGuard]},
 
   {
     path: 'gestion-perfil', component: GestionPerfilComponent,

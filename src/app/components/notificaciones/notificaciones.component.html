@@ -1,17 +1,66 @@
-<button (click)="mostrarPanel = !mostrarPanel">
-    🔔
-</button>
+<!-- Header del dropdown con contador -->
+<div class="dropdown-header d-flex justify-content-between align-items-center pb-2">
+    <h6 class="mb-0">
+        <i class="bi bi-bell me-1"></i>
+        Notificaciones
+        <span *ngIf="tieneNoLeidas" class="badge bg-danger ms-1">{{ cantidadNoLeidas }}</span>
+    </h6>
+    <button *ngIf="cantidadNoLeidas > 0" class="btn btn-sm btn-link p-0 text-decoration-none"
+        (click)="marcarTodasLeidas()">
+        <i class="bi bi-check-all"></i> Marcar todas
+    </button>
+</div>
 
-<div *ngIf="mostrarPanel" class="panel-notificaciones">
-    <div *ngIf="notificaciones.length === 0">No tienes notificaciones pendientes.</div>
-
-    <div *ngFor="let n of notificaciones" class="notificacion" [class.leida]="n.leida">
-        <strong>{{ n.tipo }}</strong>
-        <p>{{ n.mensaje }}</p>
-        <small>{{ n.fecha | date:'short' }}</small>
-
-        <button *ngIf="!n.leida" class="btn-leer" (click)="marcarComoLeida(n.id)">
-            Marcar como leída
-        </button>
+<!-- Loading -->
+<div *ngIf="loading" class="text-center py-3">
+    <div class="spinner-border spinner-border-sm text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
     </div>
+</div>
+
+<!-- Mensaje vacío -->
+<div *ngIf="!loading && notificaciones.length === 0" class="dropdown-item text-center text-muted py-3">
+    <i class="bi bi-bell-slash fs-3 mb-2 d-block"></i>
+    No tienes notificaciones
+</div>
+
+<!-- Lista de notificaciones -->
+<div *ngIf="!loading && notificaciones.length > 0" class="notificaciones-lista">
+    <a *ngFor="let n of notificaciones; trackBy: trackById"
+        class="dropdown-item notificacion py-2 px-3 d-flex align-items-start" [class.leida]="n.leida"
+        [class.unread]="!n.leida">
+
+        <!-- Icono según tipo -->
+        <div class="notif-icon me-3 flex-shrink-0">
+            <i *ngIf="n.tipo === 'PEDIDO'" class="bi bi-bag-check text-success fs-5"></i>
+            <i *ngIf="n.tipo === 'ESTADO'" class="bi bi-clock-history text-warning fs-5"></i>
+            <i *ngIf="n.tipo === 'PROMO'" class="bi bi-tag text-info fs-5"></i>
+            <i *ngIf="n.tipo === 'ALERTA'" class="bi bi-exclamation-triangle text-danger fs-5"></i>
+            <i *ngIf="!n.tipo" class="bi bi-info-circle text-muted fs-5"></i>
+        </div>
+
+        <!-- Contenido -->
+        <div class="flex-grow-1 pe-2">
+            <div class="d-flex justify-content-between align-items-start mb-1">
+                <strong class="text-truncate d-block">{{ n.tipo || 'Notificación' }}</strong>
+                <small class="text-muted ms-2">{{ n.fecha | date:'short' }}</small>
+            </div>
+            <p class="mb-0 small text-truncate-2">{{ n.mensaje }}</p>
+        </div>
+
+        <!-- Botón marcar leída (solo no leídas) -->
+        <button *ngIf="!n.leida" class="btn btn-sm btn-outline-primary flex-shrink-0 ms-auto"
+            (click)="marcarComoLeida(n.id); $event.stopPropagation(); $event.preventDefault()">
+            <i class="bi bi-eye"></i>
+        </button>
+    </a> <!-- ✅ ETIQUETA <a> CERRADA -->
+</div>
+
+<!-- Footer -->
+<div class="dropdown-divider"></div>
+<div class="dropdown-item text-center text-primary py-2">
+    <i class="bi bi-arrow-clockwise me-1"></i>
+    <a href="#" class="text-decoration-none" (click)="cargarNotificaciones(); $event.preventDefault()">
+        Actualizar
+    </a>
 </div>

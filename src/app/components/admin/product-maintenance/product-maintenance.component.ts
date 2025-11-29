@@ -17,7 +17,8 @@ export class ProductMaintenanceComponent implements OnInit {
   categorias: any[] = [];
   productoSeleccionado: any = { categoria: {}, categoriaId: null, imagen_url: '' };
   esNuevo: boolean = true;
-  cargando: boolean = false; // indicador opcional de carga
+  cargando: boolean = false;
+  mostrarModal: boolean = false; // ✅ AGREGAR ESTA LÍNEA
 
   constructor(
     private productoService: ProductoService,
@@ -27,7 +28,6 @@ export class ProductMaintenanceComponent implements OnInit {
   ngOnInit(): void {
     this.cargarProductos();
     this.cargarCategorias();
-    this.nuevoFormulario();
   }
 
   cargarProductos() {
@@ -40,7 +40,6 @@ export class ProductMaintenanceComponent implements OnInit {
     this.categoriaService.getCategorias().subscribe(data => {
       this.categorias = data;
 
-      // Asegura que la categoría se actualice correctamente en el producto seleccionado
       if (this.productoSeleccionado?.categoriaId) {
         const cat = this.categorias.find((c: any) => c.id === this.productoSeleccionado.categoriaId);
         if (cat) this.productoSeleccionado.categoria = cat;
@@ -49,21 +48,18 @@ export class ProductMaintenanceComponent implements OnInit {
   }
 
   seleccionarProducto(prod: any) {
-    // 🔍 Determinamos el id de categoría correctamente
     const categoriaId = prod?.categoria?.id ?? prod?.categoria ?? prod?.categoriaId ?? null;
-
-    // Buscamos el objeto de categoría completo si existe
     const categoriaObj = this.categorias?.find((c: any) => c.id === categoriaId) ?? (categoriaId ? { id: categoriaId } : null);
 
-    // ✅ Mantenemos imagen_url en lugar de imagenUrl
     this.productoSeleccionado = {
       ...prod,
       categoria: categoriaObj,
       categoriaId,
-      imagen_url: prod.imagen_url || ''  // 👈 coherente con el backend
+      imagen_url: prod.imagen_url || ''
     };
 
     this.esNuevo = false;
+    this.mostrarModal = true; // ✅ AGREGAR ESTA LÍNEA
   }
 
   nuevoFormulario() {
@@ -73,10 +69,16 @@ export class ProductMaintenanceComponent implements OnInit {
       precio: null,
       categoria: null,
       categoriaId: null,
-      imagen_url: '', // ✅ coherente con backend
+      imagen_url: '',
       disponible: false,
     };
     this.esNuevo = true;
+    this.mostrarModal = true; // ✅ AGREGAR ESTA LÍNEA
+  }
+
+  // ✅ AGREGAR ESTE MÉTODO
+  cerrarModal() {
+    this.mostrarModal = false;
   }
 
   guardarProducto() {
@@ -90,27 +92,24 @@ export class ProductMaintenanceComponent implements OnInit {
 
     const productoId = this.productoSeleccionado?.id;
 
-    // 🧩 Construcción del payload coherente con el backend
     let payload: any;
 
     if (productoId) {
-      // 🔧 Actualización
       payload = {
         id: productoId,
         nombre: this.productoSeleccionado.nombre,
         descripcion: this.productoSeleccionado.descripcion,
         precio: this.productoSeleccionado.precio,
-        imagen_url: this.productoSeleccionado.imagen_url, // 👈 campo correcto
+        imagen_url: this.productoSeleccionado.imagen_url,
         disponible: this.productoSeleccionado.disponible,
         categoria: categoriaId ? { id: categoriaId } : null
       };
     } else {
-      // 🆕 Creación
       payload = {
         nombre: this.productoSeleccionado.nombre,
         descripcion: this.productoSeleccionado.descripcion,
         precio: this.productoSeleccionado.precio,
-        imagen_url: this.productoSeleccionado.imagen_url, // 👈 coherente
+        imagen_url: this.productoSeleccionado.imagen_url,
         disponible: this.productoSeleccionado.disponible,
         categoriaId
       };
@@ -118,7 +117,6 @@ export class ProductMaintenanceComponent implements OnInit {
 
     console.log('📦 Payload final a enviar:', JSON.stringify(payload, null, 2));
 
-    // 🔁 Crear o actualizar según corresponda
     const request = productoId
       ? this.productoService.actualizarProducto(productoId, payload)
       : this.productoService.crearProducto(payload);
@@ -128,6 +126,7 @@ export class ProductMaintenanceComponent implements OnInit {
         console.log(productoId ? '✅ Producto actualizado:' : '✅ Producto creado:', resp);
         this.cargarProductos();
         this.cargando = false;
+        this.cerrarModal(); // ✅ AGREGAR ESTA LÍNEA
         alert(productoId ? 'Producto actualizado correctamente' : 'Producto creado correctamente');
       },
       error: (err) => {

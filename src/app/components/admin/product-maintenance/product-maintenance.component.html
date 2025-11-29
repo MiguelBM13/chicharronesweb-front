@@ -1,48 +1,86 @@
-<div class="row g-4">
-  <!-- Columna de la lista de productos -->
-  <div class="col-lg-5">
-    <div class="card h-100 shadow-sm">
-      <div class="card-header bg-primary text-white">
-        <h5 class="mb-0">Productos Existentes</h5>
-      </div>
-      <div class="list-group list-group-flush">
-        <div *ngIf="productos.length === 0" class="list-group-item text-center text-muted py-3">
-          No hay productos para mostrar.
-        </div>
+<div class="productos-container">
+  <!-- Header con botón -->
+  <div class="header-productos">
+    <h3 class="titulo-productos">
+      <i class="bi bi-box-seam me-2"></i> Gestión de Productos
+    </h3>
+    <button class="btn-nuevo-producto" (click)="nuevoFormulario()">
+      <i class="bi bi-plus-circle me-1"></i> Nuevo Producto
+    </button>
+  </div>
 
-        <a *ngFor="let prod of productos" href="javascript:void(0)"
-          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-          [class.active]="productoSeleccionado?.id === prod.id"
-          (click)="seleccionarProducto(prod)">
-          <div class="d-flex align-items-center">
-            <!-- ✅ Aquí se usa imagen_url -->
-            <img [src]="prod.imagen_url ? 'assets/images/' +prod.imagen_url : 'assets/images/Logoc.jpg'"
-                 alt="imagen producto"
-                 class="rounded me-2"
-                 style="width: 45px; height: 45px; object-fit: cover;">
-            <div>
-              <div class="fw-semibold">{{ prod.nombre }}</div>
-              <small class="text-muted">{{ prod.precio | currency:'PEN':'symbol':'1.2-2' }}</small>
-            </div>
-          </div>
+  <!-- Tabla de productos -->
+  <div class="table-card">
+    <div class="table-responsive">
+      <table class="table table-productos align-middle">
+        <thead>
+          <tr>
+            <th>NOMBRE</th>
+            <th>DESCRIPCIÓN</th>
+            <th>PRECIO</th>
+            <th>DISPONIBILIDAD</th>
+            <th>URL IMAGEN</th>
+            <th class="text-center">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="productos.length === 0">
+            <td colspan="6" class="text-center text-muted py-4">
+              <i class="bi bi-inbox me-2"></i> No hay productos para mostrar.
+            </td>
+          </tr>
 
-          <button type="button" class="btn btn-sm btn-outline-danger ms-2"
-            (click)="eliminarProducto(prod.id); $event.stopPropagation()">
-            <i class="bi bi-trash"></i>
-          </button>
-        </a>
-      </div>
+          <tr *ngFor="let prod of productos">
+            <td>
+              <div class="d-flex align-items-center">
+                <img [src]="prod.imagen_url ? 'assets/images/' + prod.imagen_url : 'assets/images/Logoc.jpg'"
+                     alt="imagen producto"
+                     class="producto-img me-2">
+                <span class="fw-semibold">{{ prod.nombre }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="text-descripcion">{{ prod.descripcion || 'Sin descripción' }}</span>
+            </td>
+            <td class="fw-semibold">{{ prod.precio | currency:'PEN':'symbol':'1.2-2' }}</td>
+            <td>
+              <span class="badge-disponibilidad" [ngClass]="{
+                'badge-disponible': prod.disponible,
+                'badge-no-disponible': !prod.disponible
+              }">
+                {{ prod.disponible ? 'Disponible' : 'No disponible' }}
+              </span>
+            </td>
+            <td>
+              <span class="text-url">{{ prod.imagen_url || 'Sin imagen' }}</span>
+            </td>
+            <td class="text-center">
+              <div class="d-flex justify-content-center gap-2">
+                <button class="btn-accion btn-editar" (click)="seleccionarProducto(prod)">
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn-accion btn-eliminar" (click)="eliminarProducto(prod.id)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Columna del formulario de edición/creación -->
-  <div class="col-lg-7">
-    <div class="card h-100 shadow-sm">
-      <div class="card-header bg-success text-white">
+  <!-- Modal -->
+  <div *ngIf="mostrarModal" class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-card-producto" (click)="$event.stopPropagation()">
+      <div class="modal-header-producto">
         <h5 class="mb-0">{{ esNuevo ? 'Nuevo Producto' : 'Editar Producto' }}</h5>
+        <button class="btn-close-modal" (click)="cerrarModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
 
-      <div class="card-body">
+      <div class="modal-body-producto">
         <form (ngSubmit)="guardarProducto()">
           <div class="mb-3">
             <label for="prod-nombre" class="form-label">Nombre:</label>
@@ -78,7 +116,6 @@
             </div>
           </div>
 
-          <!-- ✅ campo imagen_url -->
           <div class="mb-3">
             <label for="prod-imagen" class="form-label">URL de la Imagen:</label>
             <input type="text" id="prod-imagen" name="imagen_url" class="form-control"
@@ -92,7 +129,7 @@
           </div>
 
           <div class="d-flex justify-content-end gap-2 mt-4">
-            <button *ngIf="!esNuevo" type="button" class="btn btn-secondary" (click)="nuevoFormulario()">
+            <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
               Cancelar
             </button>
 

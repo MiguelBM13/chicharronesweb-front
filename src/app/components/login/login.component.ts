@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 
   imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
-  
   styleUrl: './login.component.css'
 })
 export class LoginComponent {

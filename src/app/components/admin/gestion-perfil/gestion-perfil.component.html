@@ -1,74 +1,118 @@
-<div class="container py-4">
-  <h2 class="text-center text-primary mb-4">
-    <i class="bi bi-people"></i> Gestión de Perfiles
-  </h2>
+<div class="gestion-container">
+  <div class="header-section">
+    <h2 class="titulo-principal">
+      Gestión de Perfiles
+    </h2>
+    <p class="subtitulo">Administra los usuarios del sistema</p>
+  </div>
+  <!-- Loading spinner -->
+  <div *ngIf="cargando" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
 
-  <div *ngIf="!cargando && usuarios.length > 0" class="table-responsive">
-    <table class="table table-striped table-hover align-middle">
-      <thead class="table-primary">
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Rol</th>
-          <th class="text-center">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usuario of usuarios">
-          <td>{{ usuario.id }}</td>
-          <td>{{ usuario.nombre }}</td>
-          <td>{{ usuario.email }}</td>
-          <td>{{ usuario.rol }}</td>
-          <td class="text-center">
-            <button class="btn btn-sm btn-warning me-2" (click)="editarUsuario(usuario)">
-              <i class="bi bi-pencil"></i> Editar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Tabla de usuarios -->
+  <div *ngIf="!cargando && usuarios.length > 0" class="table-card">
+    <div class="table-responsive">
+      <table class="table table-usuarios align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>EMAIL</th>
+            <th>ROL</th>
+            <th class="text-center">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td class="fw-bold">#{{ usuario.id }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td class="text-muted">{{ usuario.email }}</td>
+            <td>
+              <span class="badge-rol" [ngClass]="{
+                'badge-admin': usuario.rol === 'ADMIN',
+                'badge-cliente': usuario.rol === 'CLIENTE'
+              }">
+                {{ usuario.rol }}
+              </span>
+            </td>
+            <td class="text-center">
+              <button class="btn-accion btn-editar" (click)="editarUsuario(usuario)">
+                <i class="bi bi-pencil-fill me-1"></i> Editar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sin usuarios -->
+  <div *ngIf="!cargando && usuarios.length === 0" class="alert-custom">
+    <i class="bi bi-info-circle-fill me-2"></i>
+    No hay usuarios registrados en el sistema
   </div>
 
   <!-- Modal de edición -->
-  <div *ngIf="modoEdicion" class="card shadow mt-4 p-4">
-    <h4 class="text-center text-secondary mb-3">
-      <i class="bi bi-person-gear"></i> Editar Usuario
-    </h4>
-
-    <form (ngSubmit)="guardarCambios()">
-      <div class="mb-3">
-        <label class="form-label">Nombre</label>
-        <input [(ngModel)]="usuarioSeleccionado.nombre" name="nombre" class="form-control" required>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input [(ngModel)]="usuarioSeleccionado.email" name="email" class="form-control" type="email" required>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Contraseña</label>
-        <input [(ngModel)]="usuarioSeleccionado.password" name="password" class="form-control" type="password">
-      </div>
-
-      <!-- Campo de rol solo visible para admin -->
-       <div class="mb-3" *ngIf="esAdmin">
-        <label class="form-label">Rol</label>
-        <select [(ngModel)]="usuarioSeleccionado.rol" name="rol" class="form-select">
-          <option value="CLIENTE">CLIENTE</option>
-          <option value="ADMIN">ADMIN</option>
-        </select>
-      </div>
-
-      <div class="text-center">
-        <button class="btn btn-success me-2" type="submit">
-          <i class="bi bi-check-circle"></i> Guardar
-        </button>
-        <button class="btn btn-secondary" type="button" (click)="cancelarEdicion()">
-          <i class="bi bi-x-circle"></i> Cancelar
+  <div *ngIf="modoEdicion" class="modal-overlay" (click)="cancelarEdicion()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header-custom">
+        <h4 class="modal-titulo">
+          <i class="bi bi-person-gear me-2"></i> Editar Usuario
+        </h4>
+        <button class="btn-close-custom" (click)="cancelarEdicion()">
+          <i class="bi bi-x-lg"></i>
         </button>
       </div>
-    </form>
+
+      <form (ngSubmit)="guardarCambios()">
+        <div class="modal-body-custom">
+          <div class="form-group-custom">
+            <label class="form-label-custom">
+              <i class="bi bi-person me-1"></i> Nombre
+            </label>
+            <input [(ngModel)]="usuarioSeleccionado.nombre" name="nombre" class="form-control-custom" required>
+          </div>
+
+          <div class="form-group-custom">
+            <label class="form-label-custom">
+              <i class="bi bi-envelope me-1"></i> Email
+            </label>
+            <input [(ngModel)]="usuarioSeleccionado.email" name="email" class="form-control-custom" type="email"
+              required>
+          </div>
+
+          <div class="form-group-custom">
+            <label class="form-label-custom">
+              <i class="bi bi-lock me-1"></i> Contraseña
+            </label>
+            <input [(ngModel)]="usuarioSeleccionado.password" name="password" class="form-control-custom"
+              type="password" placeholder="Dejar vacío para no cambiar">
+          </div>
+
+          <!-- Campo de rol solo visible para admin -->
+          <div class="form-group-custom" *ngIf="esAdmin">
+            <label class="form-label-custom">
+              <i class="bi bi-shield-check me-1"></i> Rol
+            </label>
+            <select [(ngModel)]="usuarioSeleccionado.rol" name="rol" class="form-control-custom">
+              <option value="CLIENTE">CLIENTE</option>
+              <option value="ADMIN">ADMIN</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer-custom">
+          <button class="btn-modal btn-guardar" type="submit">
+            <i class="bi bi-check-circle-fill me-1"></i> Guardar Cambios
+          </button>
+          <button class="btn-modal btn-cancelar" type="button" (click)="cancelarEdicion()">
+            <i class="bi bi-x-circle-fill me-1"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

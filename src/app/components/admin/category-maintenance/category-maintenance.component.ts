@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Necesario para los formularios
+import { FormsModule } from '@angular/forms';
 import { CategoriaService } from '../../../services/categoria.service';
 
 @Component({
@@ -15,6 +15,9 @@ export class CategoryMaintenanceComponent implements OnInit {
   categorias: any[] = [];
   categoriaSeleccionada: any = {};
   esNuevo: boolean = true;
+  mostrarModal: boolean = false; // ✅ AGREGAR
+  mostrarModalEliminar: boolean = false; // ✅ AGREGAR
+  categoriaAEliminar: any = null; // ✅ AGREGAR
 
   constructor(private categoriaService: CategoriaService) { }
 
@@ -28,43 +31,82 @@ export class CategoryMaintenanceComponent implements OnInit {
     });
   }
 
-seleccionarCategoria(categoria: any) {
-  if (!categoria?.id) {
-    alert('La categoría seleccionada no tiene un ID válido.');
-    return;
+  seleccionarCategoria(categoria: any) {
+    if (!categoria?.id) {
+      alert('La categoría seleccionada no tiene un ID válido.');
+      return;
+    }
+
+    this.categoriaSeleccionada = { ...categoria };
+    this.esNuevo = false;
+    this.mostrarModal = true; // ✅ AGREGAR
   }
 
-  this.categoriaSeleccionada = { ...categoria };
-  this.esNuevo = false;
-}
-
-
-
   nuevoFormulario() {
-    this.categoriaSeleccionada = {};
+    this.categoriaSeleccionada = {
+      nombre: '',
+      descripcion: ''
+    };
     this.esNuevo = true;
+    this.mostrarModal = true; // ✅ AGREGAR
+  }
+
+  // ✅ AGREGAR MÉTODO
+  cerrarModal() {
+    this.mostrarModal = false;
   }
 
   guardarCategoria() {
     if (this.esNuevo) {
-      // Crear nueva categoría
-      this.categoriaService.crearCategoria(this.categoriaSeleccionada).subscribe(() => {
-        this.cargarCategorias();
-        this.nuevoFormulario();
+      this.categoriaService.crearCategoria(this.categoriaSeleccionada).subscribe({
+        next: () => {
+          this.cargarCategorias();
+          this.cerrarModal(); // ✅ CAMBIAR
+          alert('Categoría creada correctamente');
+        },
+        error: (err) => {
+          console.error('Error al crear:', err);
+          alert('Error al crear la categoría');
+        }
       });
     } else {
-      // Actualizar categoría existente
-      this.categoriaService.actualizarCategoria(this.categoriaSeleccionada.id, this.categoriaSeleccionada).subscribe(() => {
-        this.cargarCategorias();
-        this.nuevoFormulario();
+      this.categoriaService.actualizarCategoria(this.categoriaSeleccionada.id, this.categoriaSeleccionada).subscribe({
+        next: () => {
+          this.cargarCategorias();
+          this.cerrarModal(); // ✅ CAMBIAR
+          alert('Categoría actualizada correctamente');
+        },
+        error: (err) => {
+          console.error('Error al actualizar:', err);
+          alert('Error al actualizar la categoría');
+        }
       });
     }
   }
 
-  eliminarCategoria(id: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta categoría?')) {
-      this.categoriaService.eliminarCategoria(id).subscribe(() => {
-        this.cargarCategorias();
+  // ✅ AGREGAR MÉTODOS DE ELIMINACIÓN
+  abrirModalEliminar(categoria: any) {
+    this.categoriaAEliminar = categoria;
+    this.mostrarModalEliminar = true;
+  }
+
+  cerrarModalEliminar() {
+    this.mostrarModalEliminar = false;
+    this.categoriaAEliminar = null;
+  }
+
+  confirmarEliminar() {
+    if (this.categoriaAEliminar) {
+      this.categoriaService.eliminarCategoria(this.categoriaAEliminar.id).subscribe({
+        next: () => {
+          this.cargarCategorias();
+          this.cerrarModalEliminar();
+          alert('Categoría eliminada correctamente');
+        },
+        error: (err) => {
+          console.error('Error al eliminar:', err);
+          alert('Error al eliminar la categoría');
+        }
       });
     }
   }
