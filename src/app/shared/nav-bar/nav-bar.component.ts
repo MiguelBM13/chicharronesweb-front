@@ -5,42 +5,49 @@ import { Subscription } from 'rxjs';
 import { NotificacionesComponent } from '../../components/notificaciones/notificaciones.component';
 
 import { AuthService } from '../../services/auth.service';
+import { CarritoService } from '../../services/carrito.service';
+import { NotificacionService } from '../../services/notificacionService';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, NotificacionesComponent],  // 🆕 AGREGADO
+  imports: [CommonModule, RouterLink, RouterLinkActive, NotificacionesComponent],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent implements OnInit, OnDestroy {
-  // AGREGADO: VARIABLE PARA ALMACENAR EL CONTADOR DE ITEMS DEL CARRITO
   cartItemCount: number = 0;
+  notificationCount: number = 0;
 
-  // 🆕 NUEVAS PROPIEDADES PARA NOTIFICACIONES
-
-  notificationCount: number = 0;  // 1️⃣ Propiedad
-
-  // AGREGADO: SUSCRIPCIÓN AL OBSERVABLE DEL CARRITO PARA ACTUALIZAR EL CONTADOR EN TIEMPO REAL
   private carritoSubscription!: Subscription;
 
   constructor(
     public authService: AuthService,
+    private carritoService: CarritoService,
+    private notificacionService: NotificacionService  // 🔔 Mantener para futuro uso
   ) { }
 
-  // AGREGADO: MÉTODO QUE SE EJECUTA AL INICIALIZAR EL COMPONENTE
   ngOnInit(): void {
+    // Suscribirse al carrito
+    this.carritoSubscription = this.carritoService.carrito$.subscribe(items => {
+      this.cartItemCount = items.reduce((total, item) => total + item.cantidad, 0);
+    });
 
+    // 🔔 NOTA: Ya no es necesario suscribirse aquí porque el componente 
+    // de notificaciones emitirá los cambios automáticamente
   }
 
-  // 🆕 MÉTODO PARA CUANDO SE MARCA NOTIFICACIÓN COMO LEÍDA
+  // 🔔 NUEVO: Recibir actualizaciones del contador desde el componente hijo
+  onCantidadNoLeidasChange(cantidad: number): void {
+    this.notificationCount = cantidad;
+  }
+
+  // 🔔 MÉTODO PARA CUANDO SE MARCAN TODAS COMO LEÍDAS
   onNotificationRead(): void {
-    this.notificationCount = 0;  // Ocultar badge
+    this.notificationCount = 0;
   }
 
-  // AGREGADO: MÉTODO QUE SE EJECUTA AL DESTRUIR EL COMPONENTE
   ngOnDestroy(): void {
-    // AGREGADO: CANCELAMOS LA SUSCRIPCIÓN PARA EVITAR FUGAS DE MEMORIA (MEMORY LEAKS)
     if (this.carritoSubscription) {
       this.carritoSubscription.unsubscribe();
     }

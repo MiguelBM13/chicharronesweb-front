@@ -86,6 +86,26 @@ export class CarritoService {
   }
 
   /**
+   * Elimina un producto del carrito del usuario logeado.
+   */
+  eliminarProducto(productoId: number) {
+    const usuario = this.authService.currentUserValue;
+    if (!usuario) return;
+
+    const userId = usuario.id;
+    if (!this.carritosPorUsuario[userId]) return;
+
+    const items = this.carritosPorUsuario[userId];
+    const index = items.findIndex(item => item.id === productoId);
+
+    if (index !== -1) {
+      items.splice(index, 1);
+      localStorage.setItem(`carrito_${userId}`, JSON.stringify(items));
+      this.carritoSubject.next(items);
+    }
+  }
+
+  /**
    * Devuelve la cantidad total de productos en el carrito del usuario logeado.
    */
   obtenerCantidadTotal(): number {

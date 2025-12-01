@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.contacto-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 40px 40px 40px;
+    min-height: auto;
+    background-color: #ededed;
+}
+
+.contacto-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.contacto-header h1 {
+    font-size: 56px;
+    font-weight: 800;
+    color: #161616;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.subtitle {
+    font-size: 15px;
+    color: #666;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+.contacto-content {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+/* Formulario Mejorado */
+.form-section {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+}
+
+.form-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.12),
+        0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 18px 25px;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 18px 25px;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+    color: #333;
+    resize: none;
+    min-height: 140px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #161616;
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(74, 44, 42, 0.08);
+    transform: translateY(-2px);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #aaa;
+    font-weight: 300;
+}
+
+/* Estilizar scrollbar del textarea */
+.form-textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+.form-textarea::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.form-textarea::-webkit-scrollbar-thumb {
+    background: #161616;
+    border-radius: 10px;
+}
+
+.form-textarea::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+}
+
+.submit-button {
+    background: #050400;
+    color: white;
+    padding: 18px 50px;
+    border: none;
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    align-self: center;
+    width: 220px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 20px rgba(74, 44, 42, 0.25);
+}
+
+.submit-button:hover {
+    background: linear-gradient(135deg, #331d1a 0%, #161616 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(74, 44, 42, 0.35);
+}
+
+.submit-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(74, 44, 42, 0.3);
+}
+
+/* Mapa Mejorado */
+.map-section {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.03);
+    height: 550px;
+    border: 3px solid #f0f0f0;
+    transition: transform 0.3s ease;
+}
+
+.map-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.12),
+        0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.map-section iframe {
+    display: block;
+    filter: grayscale(10%) contrast(1.1);
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contacto-header {
+    animation: fadeInUp 0.6s ease;
+}
+
+.form-section {
+    animation: fadeInUp 0.8s ease;
+}
+
+.map-section {
+    animation: fadeInUp 1s ease;
+}
+
+/* Responsive Mejorado */
+@media (max-width: 1024px) {
+    .contacto-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .map-section {
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contacto-container {
+        padding: 60px 30px 30px 30px;
+    }
+
+    .contacto-header h1 {
+        font-size: 40px;
+        letter-spacing: 2px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .form-section {
+        padding: 40px 30px;
+    }
+
+    .map-section {
+        height: 400px;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contacto-container {
+        padding: 40px 20px 20px 20px;
+    }
+
+    .contacto-header h1 {
+        font-size: 32px;
+        letter-spacing: 1px;
+    }
+
+    .contacto-header {
+        margin-bottom: 40px;
+    }
+
+    .form-section {
+        padding: 30px 20px;
+    }
+
+    .form-input,
+    .form-textarea {
+        padding: 15px 20px;
+        font-size: 14px;
+    }
+
+    .submit-button {
+        padding: 16px 40px;
+        font-size: 15px;
+    }
+
+    .map-section {
+        height: 320px;
+    }
+}
+
+/* Efectos adicionales */
+.form-input:hover,
+.form-textarea:hover {
+    border-color: #ccc;
+}
+
+.contact-form {
+    position: relative;
+}
+
+/* Indicador de campo requerido */
+.form-input:invalid:not(:placeholder-shown),
+.form-textarea:invalid:not(:placeholder-shown) {
+    border-color: #ff6b6b;
+}
+
+.form-input:valid:not(:placeholder-shown),
+.form-textarea:valid:not(:placeholder-shown) {
+    border-color: #51cf66;
+}

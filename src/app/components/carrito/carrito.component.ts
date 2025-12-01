@@ -70,6 +70,10 @@ export class CarritoComponent implements OnInit {
     });
   }
 
+  eliminarProducto(item: any) {
+    this.carritoService.eliminarProducto(item.id);
+  }
+
   volverAlMenu() {
     this.router.navigate(['/menu']);
   }

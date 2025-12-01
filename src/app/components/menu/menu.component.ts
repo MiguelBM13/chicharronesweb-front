@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
   }
 
   aplicarFiltros() {
-    let productosTemp = this.productos;
+    let productosTemp = this.productos.filter(p => p.disponible);
 
     // 1. Filtrar por categoría
     if (this.categoriaSeleccionadaId) {

@@ -24,9 +24,14 @@
             <span class="fw-semibold fs-5 text-dark">{{ item.nombre }}</span>
             <small class="text-muted">Cantidad: {{ item.cantidad }}</small>
           </div>
-          <span class="fw-bold text-success fs-5">
-            S/ {{ (item.precio * item.cantidad).toFixed(2) }}
-          </span>
+          <div class="d-flex align-items-center gap-3">
+            <span class="fw-bold text-success fs-5">
+              S/ {{ (item.precio * item.cantidad).toFixed(2) }}
+            </span>
+            <button class="btn btn-outline-danger btn-sm" (click)="eliminarProducto(item)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
         </li>
       </ul>
 

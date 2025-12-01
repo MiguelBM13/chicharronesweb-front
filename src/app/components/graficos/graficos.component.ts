@@ -46,7 +46,7 @@ Chart.register(
 })
 export class GraficosComponent implements OnInit {
 
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective<'line'> | undefined;
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   dashboardData: any | null = null;
   cargando = true;

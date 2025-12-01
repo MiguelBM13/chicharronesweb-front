@@ -14,26 +14,32 @@ import { GestionPerfilComponent } from './components/admin/gestion-perfil/gestio
 import { GestionPedidosComponent } from './components/admin/gestion-pedidos/gestion-pedidos.component';
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 import { GraficosComponent } from './components/graficos/graficos.component';
+import { Nosotros } from './components/nosotros/nosotros';
+import { Contacto } from './components/contacto/contacto';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent }, // La landing es la nueva ruta raíz
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
+  { path: 'nosotros', component: Nosotros },
+  { path: 'contacto', component: Contacto },
   { path: 'pedidos', component: PedidosComponent },
   { path: 'calificar/:id', component: CalificacionComponent },
   { path: 'edit-perfil', component: EditPerfilComponent },
+  { path: 'menu', component: MenuComponent},
+
+
   { path: '', redirectTo: '/pedidos', pathMatch: 'full' },
 
   // Rutas protegidas
-  { path: 'menu', component: MenuComponent, canActivate: [authGuard] },
   { path: 'carrito', component: CarritoComponent, canActivate: [authGuard] },
-  {path:'notificaciones',component:NotificacionesComponent, canActivate: [authGuard]},
+  { path: 'notificaciones', component: NotificacionesComponent, canActivate: [authGuard] },
 
   {
     path: 'gestion-perfil', component: GestionPerfilComponent,
     canActivate: [authGuard, adminGuard]
   },
-    {
+  {
     path: 'gestion-pedidos', component: GestionPedidosComponent,
     canActivate: [authGuard, adminGuard]
   },
@@ -42,7 +48,7 @@ export const routes: Routes = [
     component: AdminDashboardComponent,
     canActivate: [authGuard, adminGuard]
   },
-    {
+  {
     path: 'grafico', component: GraficosComponent,
     canActivate: [authGuard, adminGuard]
   },

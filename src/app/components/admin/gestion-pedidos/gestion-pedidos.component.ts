@@ -26,10 +26,10 @@ export class GestionPedidosComponent implements OnInit {
   }
   cambiarEstado(pedido: any, event: any) {
     const nuevoEstado = event.target.value;
-    this.pedidoService.actualizarEstado(pedido.id, nuevoEstado).subscribe({
+    this.pedidoService.actualizarEstadoConNotificacion(pedido.id, nuevoEstado, pedido.usuarioId).subscribe({
       next: (response) => {
         pedido.estado = response.estado;
-        alert(`El pedido #${pedido.id} ha sido actualizado a ${response.estado}`);
+        alert(`El pedido #${pedido.id} ha sido actualizado a ${response.estado} y se ha notificado al cliente.`);
       },
       error: (err) => {
         alert('Error al actualizar el estado del pedido.');
